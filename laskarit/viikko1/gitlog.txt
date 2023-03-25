@@ -1,5 +1,26 @@
-Kirin@DESKTOP-SDN3BCI MINGW64 /e/System/Documents/ot_viikko1 (master)
+Kirin@DESKTOP-SDN3BCI MINGW64 /e/System/Documents/ot_viikko1/tiedostoja (master)
 $ git log --stat | cat
+commit 746643b74203fdf8b61caac880bb839c934e32dc
+Author: Kirin Pörsti <kirin.porsti@helsinki.fi>
+Date:   Sat Mar 25 03:24:24 2023 +0200
+
+    t.11 tehty
+
+ tiedostoja/file2             | 0
+ tiedostoja/{file1 => file22} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 318b33ca7abc7d16883e08f6430128517c65ad52
+Author: Kirin Pörsti <kirin.porsti@helsinki.fi>
+Date:   Sat Mar 25 03:23:10 2023 +0200
+
+    t.11 aloitus
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
 commit 1a391188e501789a68f9018934353045d3692d55
 Author: Kirin Pörsti <kirin.porsti@helsinki.fi>
 Date:   Sat Mar 25 03:01:01 2023 +0200
@@ -93,7 +114,6 @@ Date:   Sat Mar 25 02:26:26 2023 +0200
     tiedosto.txt luotu
 
  tiedosto.txt | 0
- 1 file changed, 0 insertions(+), 0 deletions(-)
 
 commit 746643b74203fdf8b61caac880bb839c934e32dc
 Author: Kirin Pörsti <kirin.porsti@helsinki.fi>
@@ -209,3 +229,4 @@ Date:   Sat Mar 25 02:26:26 2023 +0200
     tiedosto.txt luotu
 
  tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
