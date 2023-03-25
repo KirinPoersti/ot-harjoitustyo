@@ -1,0 +1,28 @@
+kirin@melkki:~$ tree kurssit
+kurssit
+├── ot2022
+│   └── viikko1
+│       └── unicafe
+│           ├── poetry.lock
+│           ├── pyproject.toml
+│           └── src
+│               ├── index.py
+│               ├── kassapaate.py
+│               ├── maksukortti.py
+│               └── tests
+│                   ├── __init__.py
+│                   └── maksukortti_test.py
+└── ot2023
+    └── viikko1
+        └── unicafe
+            ├── poetry.lock
+            ├── pyproject.toml
+            └── src
+                ├── index.py
+                ├── kassapaate.py
+                ├── maksukortti.py
+                └── tests
+                    ├── __init__.py
+                    └── maksukortti_test.py
+
+10 directories, 14 files

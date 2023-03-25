@@ -1,0 +1,96 @@
+Kirin@DESKTOP-SDN3BCI MINGW64 /e/System/Documents/ot_viikko1 (master)
+$ git log --stat | cat
+commit 1a391188e501789a68f9018934353045d3692d55
+Author: Kirin Pörsti <kirin.porsti@helsinki.fi>
+Date:   Sat Mar 25 03:01:01 2023 +0200
+
+    eka.txt ja kolmas.txt muokattu, ylimääräinen kolme.txt poistettu
+
+ eka.txt    | 3 +--
+ kolmas.txt | 1 +
+ kolme.txt  | 1 -
+ 3 files changed, 2 insertions(+), 3 deletions(-)
+
+commit 80a05e6df3d72e9e59220ec61d72f1fbe9bf5a2b
+Author: Kirin Pörsti <kirin.porsti@helsinki.fi>
+Date:   Sat Mar 25 02:57:28 2023 +0200
+
+    toinen.txt poistettu, eka.txt luotu
+
+ tiedosto.txt => eka.txt | 0
+ toinen.txt              | 2 --
+ 2 files changed, 2 deletions(-)
+
+commit fe29bc29310efafe5a58fed4d601c5dfd465168b
+Author: Kirin Pörsti <kirin.porsti@helsinki.fi>
+Date:   Sat Mar 25 02:40:35 2023 +0200
+
+    tiedosto.txt; unohdin poistaa tekstiä edellisessä commitissä, nyt on kaikki kunnossa
+
+ tiedosto.txt | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+commit 9b95b19b0a9a9a239eb5bef8d20a16cbf3d7f2c1
+Author: Kirin Pörsti <kirin.porsti@helsinki.fi>
+Date:   Sat Mar 25 02:38:37 2023 +0200
+
+    tiedosto.txt; teksti poistettu ja lisätty
+
+ tiedosto.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit b0c7a53fd20335564e7720b43b72bebb07fb88de
+Author: Kirin Pörsti <kirin.porsti@helsinki.fi>
+Date:   Sat Mar 25 02:36:10 2023 +0200
+
+    tiedosto.txt muokattu
+
+ tiedosto.txt | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+commit 4af8d048041a0abe95e928cc0c5949c655d6cf7c
+Author: Kirin Pörsti <kirin.porsti@helsinki.fi>
+Date:   Sat Mar 25 02:32:24 2023 +0200
+
+    stuff luotu
+
+ stuff/stuff.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit dce0f2686ca0841d2d4140d6526f8171b4ae1e00
+Author: Kirin Pörsti <kirin.porsti@helsinki.fi>
+Date:   Sat Mar 25 02:30:54 2023 +0200
+
+    toinen.txt ja kolmas.txt muokattu
+
+ kolme.txt  | 1 +
+ toinen.txt | 2 ++
+ 2 files changed, 3 insertions(+)
+
+commit ed41908ac068ff6c2e58f556768828066f8f4a92
+Author: Kirin Pörsti <kirin.porsti@helsinki.fi>
+Date:   Sat Mar 25 02:30:04 2023 +0200
+
+    kolmas.txt luotu
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 06c8431a241aaa1cfb171d561590f68857ff6f3f
+Author: Kirin Pörsti <kirin.porsti@helsinki.fi>
+Date:   Sat Mar 25 02:28:56 2023 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit 1b18f76176e6129103b5b28a3a2c2f83fa3070ca
+Author: Kirin Pörsti <kirin.porsti@helsinki.fi>
+Date:   Sat Mar 25 02:26:26 2023 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
