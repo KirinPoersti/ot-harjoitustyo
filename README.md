@@ -1,15 +1,17 @@
-**Hello world!**
+# Sports-Rally
 
-~~Today is a bad day...~~
+Kyseessä olisi urheilurallia kuvaava peli, jossa on kolme mini-peliä:
+    * Pong
+    * Pituushyppy
+    * "Kaksi-miestä-kolme-jalkaa" (Laji, jossa kaksi pelajaa yrittävät juosta yhksi heidän jaloista kiinnitettynä mahdollisimman nopeasti)
 
-*Today is a great day!*
+# Huomio Python-versiosta
 
-**_Be possitive~_**
+Sovelluksen toiminta on testattu Python-versiolla 3.11 ja pygame 2.3.0. Etenkin vanhempien Python-versioiden kanssa saattaa ilmentyä ongelmia.
 
-[gitlog.txt](laskarit/viikko1/gitlog.txt)
+# Dokumentaatio
 
-[komentorivi.txt](laskarit/viikko1/komentorivi.txt)
+- [changelog](dokumentaatio/changelog.md)
+- [tuntikirjanpito](dokumentaatio/tuntikirjanpito.md)
+- [vaatimusmäärittely](dokumentaatio/vaatimusmaarittely.md)
 
-[tuntikirjanpito](dokumentaatio/tuntikirjanpito.md)
-
-[vaatimusmäärittely](dokumentaatio/vaatimusmaarittely.md)
