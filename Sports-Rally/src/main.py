@@ -14,7 +14,7 @@ def main():
     size = (800, 600)
     screen = pygame.display.set_mode(size)
 
-    pygame.display.set_caption("Pong Menu")
+    pygame.display.set_caption("Pong  Menu")
 
     # Create font objects
     font = pygame.font.SysFont('Calibri', 50)
