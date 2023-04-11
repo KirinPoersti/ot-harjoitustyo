@@ -3,7 +3,7 @@ from invoke import task
 
 @task
 def start(ctx):
-    ctx.run("python3 src/pong_1.py", pty=False)
+    ctx.run("py src/main.py", pty=False)
 
 
 @task
@@ -16,13 +16,13 @@ def test(ctx):
 
 
 @task
-#def lint(ctx):
-    #ctx.run("pylint src", pty=True)
+def lint(ctx):
+    ctx.run("pylint src", pty=False)
 
 
 @task
-#def format(ctx):  # pylint: disable=redefined-builtin
-    #ctx.run("autopep8 --in-place --recursive src", pty=True)
+def format(ctx):  # pylint: disable=redefined-builtin
+    ctx.run("autopep8 --in-place --recursive src", pty=False)
 
 
 @task

@@ -1,10 +1,12 @@
 import pytest
 from Pong_test import increase_ball_speed, calculate_opponent_target_y, adjust_opponent_paddle_y, handle_stamina
 
+
 def test_increase_ball_speed():
     initial_speed = 4
     increased_speed = increase_ball_speed(initial_speed)
     assert increased_speed == pytest.approx(4.4, 0.1)
+
 
 def test_calculate_opponent_target_y():
     ball_y = 250
@@ -12,6 +14,7 @@ def test_calculate_opponent_target_y():
     ball_height = 20
     target_y = calculate_opponent_target_y(ball_y, paddle_height, ball_height)
     assert target_y == 235
+
 
 def test_adjust_opponent_paddle_y():
     # Test moving paddle up
@@ -32,6 +35,7 @@ def test_adjust_opponent_paddle_y():
     target_y = 200
     new_paddle_y = adjust_opponent_paddle_y(paddle_y, target_y, speed)
     assert new_paddle_y == 200
+
 
 @pytest.mark.parametrize(
     "keys, stamina_blocks, stamina_recharge_timer, stamina_consume_timer, expected_boost_active, expected_stamina_blocks, expected_stamina_recharge_timer, expected_stamina_consume_timer",
