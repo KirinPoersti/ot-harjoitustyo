@@ -14,4 +14,4 @@ Sovelluksen toiminta on testattu Python-versiolla 3.11 ja pygame 2.3.0. Etenkin 
 - [changelog](dokumentaatio/changelog.md)
 - [tuntikirjanpito](dokumentaatio/tuntikirjanpito.md)
 - [vaatimusmäärittely](dokumentaatio/vaatimusmaarittely.md)
-
+- [arkkitehtuuri](dokumentaatio/arkkitehtuuri.md)

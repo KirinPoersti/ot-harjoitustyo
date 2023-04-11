@@ -1,6 +1,6 @@
 
-import sys
 import pygame
+import sys
 import subprocess
 
 def main():
@@ -52,10 +52,10 @@ def main():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 # Check if the user clicked on any of the buttons
                 if practice_rect.collidepoint(event.pos):
-                    open_file('pong_practice.py')
+                    open_file('src/pong_practice.py')
                     print("Starting practice mode...")
                 elif pvp_rect.collidepoint(event.pos):
-                    open_file('pong_main.py')
+                    open_file('src/pong_pvp.py')
                     print("Starting PvP mode...")
                 elif exit_rect.collidepoint(event.pos):
                     # Exit the game
