@@ -15,9 +15,9 @@ clock = pygame.time.Clock()
 # Crucial values
 paddle_width, paddle_height = 20, 100
 player_speed_normal = 5
-player_speed_boosted = 8
+player_speed_boosted = 15
 opponent_speed_normal = 5
-opponent_speed_boosted = 8
+opponent_speed_boosted = 15
 player_paddle = pygame.Rect(
     100, HEIGHT // 2 - paddle_height // 2, paddle_width, paddle_height)
 opponent_paddle = pygame.Rect(
@@ -34,7 +34,7 @@ ball_dx, ball_dy = ball_speed, ball_speed
 # The stamina value is displayed as blocks in the lower left corner of the screen.
 # When the left shift key is pressed, the stamina recharge is paused, and each second of speed boost consumes one block from the stamina stack.
 # Constants for the stamina system
-STAMINA_RECHARGE_TIME = 2500
+STAMINA_RECHARGE_TIME = 3000
 STAMINA_CONSUME_TIME = 250
 MAX_STAMINA_BLOCKS = 5
 STAMINA_RECHARGE_EVENT = pygame.USEREVENT + 1
@@ -62,7 +62,7 @@ winning_score = 10
 font = pygame.font.Font(None, 36)
 
 # Stamina handling
-def handle_stamina(keys, stamina_blocks, stamina_recharge_timer, stamina_consume_timer, boost_key):
+def handle_stamina(keys, stamina_blocks, stamina_recharge_timer, stamina_consume_timer, boost_key, prev_key_state):
     boost_active = False
 
     if keys[boost_key] and stamina_blocks > 0:
@@ -70,61 +70,27 @@ def handle_stamina(keys, stamina_blocks, stamina_recharge_timer, stamina_consume
 
         if stamina_recharge_timer > 0:
             stamina_recharge_timer = 0
-
-        if stamina_consume_timer == 0:
-            stamina_blocks = max(0, stamina_blocks - 0.25)  # Changed from 2 to 0.25
-
-            if stamina_blocks == 0:
-                boost_active = False
-            else:
-                pass
-
-    return boost_active, stamina_blocks, stamina_recharge_timer, stamina_consume_timer
-
-# Updating stamina
-def update_stamina():
-    global stamina_blocks, boost_active, stamina_recharge_timer
-    keys = pygame.key.get_pressed()
-
-    if keys[pygame.K_LSHIFT] and stamina_blocks > 0:
-        boost_active = True
-        if stamina_recharge_timer > 0:
-            stamina_recharge_timer = 0
-            pygame.time.set_timer(STAMINA_RECHARGE_EVENT,
-                                  STAMINA_RECHARGE_TIME)
-        if stamina_consume_timer == 0:
-            stamina_blocks = max(0, stamina_blocks - 2)  # changed from 1 to 2
-            if stamina_blocks == 0:
-                boost_active = False
-                pygame.time.set_timer(STAMINA_CONSUME_EVENT, 0)
-            else:
-                pygame.time.set_timer(
-                    STAMINA_CONSUME_EVENT, STAMINA_CONSUME_TIME)
     else:
-        boost_active = False
-        if stamina_recharge_timer == 0:
-            stamina_recharge_timer = pygame.time.get_ticks()
-        else:
-            if pygame.time.get_ticks() - stamina_recharge_timer > STAMINA_RECHARGE_TIME:
-                stamina_blocks = min(stamina_blocks + 1, MAX_STAMINA_BLOCKS)
-                stamina_recharge_timer = pygame.time.get_ticks()
+        if prev_key_state and stamina_blocks > 0:
+            stamina_blocks = max(0, stamina_blocks - 1)  # Consume only 1 block when the shift key is released
+
+    return boost_active, stamina_blocks, stamina_recharge_timer, stamina_consume_timer, keys[boost_key]
+
 
 # Displaying stamina for both players
 def draw_stamina():
     block_width, block_height = 20, 10
-    block_gap = 5
+    block_gap = 2
 
     # Left player's stamina blocks
-    num_left_blocks = int(stamina_blocks / MAX_STAMINA_BLOCKS * 5)
-    for i in range(num_left_blocks):
+    for i in range(stamina_blocks):
         block_x = 10
         block_y = HEIGHT - (i + 1) * (block_height + block_gap)
         pygame.draw.rect(screen, WHITE, (block_x, block_y,
                          block_width, block_height))
 
     # Right player's stamina blocks
-    num_right_blocks = int(right_stamina_blocks / MAX_STAMINA_BLOCKS * 5)
-    for i in range(num_right_blocks):
+    for i in range(right_stamina_blocks):
         block_x = WIDTH - 10 - block_width
         block_y = HEIGHT - (i + 1) * (block_height + block_gap)
         pygame.draw.rect(screen, WHITE, (block_x, block_y,
@@ -148,9 +114,6 @@ def move_paddles():
     if keys[pygame.K_DOWN] and opponent_paddle.bottom < HEIGHT:
         opponent_paddle.y += right_player_speed
 
-# increased speed for ball
-def increase_ball_speed(speed):
-    return speed * 1.05
 
 def calculate_opponent_target_y(ball_y, paddle_height, ball_height):
     return ball_y - (paddle_height - ball_height) // 2
@@ -165,7 +128,6 @@ def adjust_opponent_paddle_y(paddle_y, target_y, speed):
 # Reseting ball after point is granted
 def reset_ball(granter):
     global ball, ball_dx, ball_dy, ball_speed
-    ball_speed = increase_ball_speed(ball_speed)
     ball = pygame.Rect(WIDTH // 2 - ball_size // 2, HEIGHT //
                        2 - ball_size // 2, ball_size, ball_size)
     ball_dx, ball_dy = ball_speed, ball_speed
@@ -209,6 +171,8 @@ def draw_objects():
 
     draw_stamina()
 
+prev_left_shift_state = False
+prev_right_shift_state = False
 # Game loop
 while player_score < winning_score and opponent_score < winning_score:
     clock.tick(FPS)
@@ -226,24 +190,25 @@ while player_score < winning_score and opponent_score < winning_score:
                 stamina_blocks = max(0, stamina_blocks - 1)
             if right_boost_active:
                 right_stamina_blocks = max(0, right_stamina_blocks - 1)
-    boost_active, stamina_blocks, stamina_recharge_timer, stamina_consume_timer = handle_stamina(
+    boost_active, stamina_blocks, stamina_recharge_timer, stamina_consume_timer, prev_left_shift_state = handle_stamina(
         pygame.key.get_pressed(),
         stamina_blocks,
         stamina_recharge_timer,
         stamina_consume_timer,
         pygame.K_LSHIFT,
+        prev_left_shift_state,
     )
-    right_boost_active, right_stamina_blocks, right_stamina_recharge_timer, right_stamina_consume_timer = handle_stamina(
+    right_boost_active, right_stamina_blocks, right_stamina_recharge_timer, right_stamina_consume_timer, prev_right_shift_state = handle_stamina(
         pygame.key.get_pressed(),
         right_stamina_blocks,
         right_stamina_recharge_timer,
         right_stamina_consume_timer,
         pygame.K_RSHIFT,
+        prev_right_shift_state,
     )
     move_paddles()
     move_ball()
     draw_objects()
-    update_stamina()
     draw_stamina()
 
     pygame.display.flip()
