@@ -20,5 +20,5 @@ Sovelluksen toiminta on testattu Python-versiolla 3.10 ja pygame 2.3.0. Etenkin 
 # Pelin suorittaminen 
 Peliä pystyy suorittamaan komennolla Sports-Rally kansion alla:
 ```bash
-poetry run invoke test
+poetry run invoke start
 ```
