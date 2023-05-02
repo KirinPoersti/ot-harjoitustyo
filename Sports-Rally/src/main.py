@@ -17,15 +17,16 @@ clock = pygame.time.Clock()
 font = pygame.font.Font(pygame.font.get_default_font(), 32)
 
 # Background image
-background_image = pygame.image.load("src/background.jpg")
+background_image = pygame.image.load("src/resources/background.jpg")
 
 # Background music
 pygame.mixer.init()
-pygame.mixer.music.load("src/bgm.mp3")
+pygame.mixer.music.load("src/resources/bgm.mp3")
 pygame.mixer.music.set_volume(0.25)
-pygame.mixer.music.play(-1)  
+pygame.mixer.music.play(-1)
 
-def draw_text_with_shadow(text, size, x, y, color, shadow_color, offset=(2,2)):
+
+def draw_text_with_shadow(text, size, x, y, color, shadow_color, offset=(2, 2)):
     font = pygame.font.Font(pygame.font.get_default_font(), size)
     text_surface = font.render(text, True, color)
     shadow_surface = font.render(text, True, shadow_color)
@@ -36,9 +37,20 @@ def draw_text_with_shadow(text, size, x, y, color, shadow_color, offset=(2,2)):
     screen.blit(shadow_surface, shadow_rect)
     screen.blit(text_surface, text_rect)
 
+
 def main_menu():
     while True:
+        click = False
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
         screen.blit(background_image, (0, 0))
+
+        button_sound = pygame.mixer.Sound("src/resources/button.mp3")
 
         mx, my = pygame.mouse.get_pos()
 
@@ -48,14 +60,17 @@ def main_menu():
 
         if button_long_jump.collidepoint((mx, my)):
             if click:
-                subprocess.Popen(["python", "src/longjump.py"])
+                button_sound.play()
+                subprocess.Popen(["python", "src/longjump/longjump.py"])
                 break
         if button_pong.collidepoint((mx, my)):
             if click:
-                subprocess.Popen(["python", "src/pong_main.py"])
+                button_sound.play()
+                subprocess.Popen(["python", "src/pong/pong_main.py"])
                 break
         if button_exit.collidepoint((mx, my)):
             if click:
+                button_sound.play()
                 pygame.quit()
                 sys.exit()
 
@@ -68,17 +83,9 @@ def main_menu():
         draw_text_with_shadow("Exit", 24, 400, 425, FONT_COLOR, (100, 100, 100))
         draw_text_with_shadow("Sports Rally", 48, 400, 150, FONT_COLOR, (100, 100, 100))
 
-        click = False
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:
-                    click = True
-
         pygame.display.flip()
         clock.tick(FPS)
+
 
 if __name__ == "__main__":
     main_menu()

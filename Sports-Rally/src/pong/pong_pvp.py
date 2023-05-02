@@ -1,4 +1,5 @@
 import pygame
+import pygame.mixer
 import sys
 
 pygame.init()
@@ -11,6 +12,8 @@ pygame.display.set_caption("Pong")
 
 FPS = 60
 clock = pygame.time.Clock()
+
+
 
 # Crucial values
 paddle_width, paddle_height = 20, 100
@@ -29,11 +32,7 @@ ball = pygame.Rect(WIDTH // 2 - ball_size // 2, HEIGHT //
                    2 - ball_size // 2, ball_size, ball_size)
 ball_dx, ball_dy = ball_speed, ball_speed
 
-# Stamina system. The player starts with a stamina value of 0.
-# When the player's speed is not boosted, a stamina value is added every 2.5 seconds.
-# The stamina value is displayed as blocks in the lower left corner of the screen.
-# When the left shift key is pressed, the stamina recharge is paused, and each second of speed boost consumes one block from the stamina stack.
-# Constants for the stamina system
+
 STAMINA_RECHARGE_TIME = 3000
 STAMINA_CONSUME_TIME = 250
 MAX_STAMINA_BLOCKS = 5
@@ -61,8 +60,58 @@ opponent_score = 0
 winning_score = 10
 font = pygame.font.Font(None, 36)
 
+pygame.mixer.init()
+pygame.mixer.music.load("src/resources/pong_bgm.mp3")
+pygame.mixer.music.set_volume(0.25)
+pygame.mixer.music.play(-1)  
+
+class SoundManager:
+    def __init__(self):
+        pygame.mixer.init()
+        self.paddle_sound = pygame.mixer.Sound("src/resources/pong_paddle.mp3")
+        self.wall_sound = pygame.mixer.Sound("src/resources/pong_wall.mp3")
+        self.score_sound = pygame.mixer.Sound("src/resources/pong_score.mp3")
+        self.boosted_sound = pygame.mixer.Sound("src/resources/pong_boosted.mp3")
+        self.button_sound = pygame.mixer.Sound("src/resources/button.mp3")
+
+    def play_paddle_sound(self):
+        self.paddle_sound.play()
+
+    def play_wall_sound(self):
+        self.wall_sound.play()
+
+    def play_score_sound(self):
+        self.score_sound.play()
+
+    def play_boosted_sound(self):
+        self.boosted_sound.play()
+
+    def play_button_sound(self):
+        self.button_sound.play()
+
+sound_manager = SoundManager()
+
 # Stamina handling
 def handle_stamina(keys, stamina_blocks, stamina_recharge_timer, stamina_consume_timer, boost_key, prev_key_state):
+    """
+    Handles stamina consumption and recharge for a player based on their boost key state.
+    
+    Args:
+        keys: List of key states from pygame.key.get_pressed().
+        stamina_blocks: Number of stamina blocks available for the player.
+        stamina_recharge_timer: Timer for stamina recharge.
+        stamina_consume_timer: Timer for stamina consumption.
+        boost_key: Key for boosting the player's speed (pygame.K_LSHIFT or pygame.K_RSHIFT).
+        prev_key_state: Previous state of the boost key.
+        
+    Returns:
+        Tuple with the following elements:
+            boost_active: Bool indicating if boost is active.
+            stamina_blocks: Updated number of stamina blocks.
+            stamina_recharge_timer: Updated timer for stamina recharge.
+            stamina_consume_timer: Updated timer for stamina consumption.
+            prev_key_state: Updated previous state of the boost key.
+    """
     boost_active = False
 
     if keys[boost_key] and stamina_blocks > 0:
@@ -79,6 +128,9 @@ def handle_stamina(keys, stamina_blocks, stamina_recharge_timer, stamina_consume
 
 # Displaying stamina for both players
 def draw_stamina():
+    """
+    Draws the stamina blocks for both players on the game screen.
+    """
     block_width, block_height = 20, 10
     block_gap = 2
 
@@ -98,6 +150,9 @@ def draw_stamina():
 
 # Paddle movement
 def move_paddles():
+    """
+    Moves the paddles based on user input and handles speed boosting.
+    """
     global player_speed_normal, player_speed_boosted, opponent_speed_normal, opponent_speed_boosted
     keys = pygame.key.get_pressed()
 
@@ -113,12 +168,36 @@ def move_paddles():
         opponent_paddle.y -= right_player_speed
     if keys[pygame.K_DOWN] and opponent_paddle.bottom < HEIGHT:
         opponent_paddle.y += right_player_speed
+    if boost_active:
+        sound_manager.play_boosted_sound()
 
 
 def calculate_opponent_target_y(ball_y, paddle_height, ball_height):
+    """
+    Calculates the target y-coordinate for the opponent paddle to follow the ball.
+    
+    Args:
+        ball_y: The y-coordinate of the ball.
+        paddle_height: The height of the paddle.
+        ball_height: The height of the ball.
+        
+    Returns:
+        The target y-coordinate for the opponent paddle.
+    """
     return ball_y - (paddle_height - ball_height) // 2
 
 def adjust_opponent_paddle_y(paddle_y, target_y, speed):
+    """
+    Adjusts the opponent paddle's y-coordinate to move towards the target y-coordinate.
+    
+    Args:
+        paddle_y: The current y-coordinate of the opponent paddle.
+        target_y: The target y-coordinate for the opponent paddle.
+        speed: The speed at which the opponent paddle moves.
+        
+    Returns:
+        The updated y-coordinate for the opponent paddle.
+    """
     if paddle_y < target_y:
         return paddle_y + min(speed, target_y - paddle_y)
     elif paddle_y > target_y:
@@ -127,6 +206,12 @@ def adjust_opponent_paddle_y(paddle_y, target_y, speed):
 
 # Reseting ball after point is granted
 def reset_ball(granter):
+    """
+    Resets the ball to its starting position and updates its direction.
+    
+    Args:
+        granter: A string indicating which player scored the last point ("opponent" or "player").
+    """
     global ball, ball_dx, ball_dy, ball_speed
     ball = pygame.Rect(WIDTH // 2 - ball_size // 2, HEIGHT //
                        2 - ball_size // 2, ball_size, ball_size)
@@ -135,14 +220,19 @@ def reset_ball(granter):
     if granter == "opponent":
         ball_dx = ball_speed 
     elif granter == "player":
-        ball_dx = -ball_speed 
+        ball_dx = -ball_speed
+    sound_manager.play_score_sound() 
 
 # Ball movement
 def move_ball():
+    """
+    Moves the ball based on its current speed and direction, and handles collisions with paddles and screen edges.
+    Also updates player scores if the ball goes off the screen.
+    """
     global ball_dx, ball_dy, player_score, opponent_score
     ball.x += ball_dx
     ball.y += ball_dy
-
+   
     if ball.left <= 0:
         ball_dx = ball_speed
         opponent_score += 1
@@ -153,13 +243,20 @@ def move_ball():
         reset_ball("player")
     elif ball.colliderect(player_paddle) and ball_dx < 0:
         ball_dx = ball_speed
+        sound_manager.play_paddle_sound()
     elif ball.colliderect(opponent_paddle) and ball_dx > 0:
         ball_dx = -ball_speed
+        sound_manager.play_paddle_sound()
     if ball.top <= 0 or ball.bottom >= HEIGHT:
         ball_dy *= -1
+        sound_manager.play_wall_sound()
+
 
 # Displaying game objects
 def draw_objects():
+    """
+    Draws game objects including paddles, ball, and score on the screen.
+    """
     screen.fill((0, 0, 0))
     pygame.draw.rect(screen, WHITE, player_paddle)
     pygame.draw.rect(screen, WHITE, opponent_paddle)
