@@ -18,6 +18,10 @@ Sovelluksen toiminta on testattu Python-versiolla 3.10 ja pygame 2.3.0. Etenkin 
 
 
 # Pelin suorittaminen 
+Ennen pelin suorittamista pitää suorittaa Sports-Rally kansion alla:
+```bash
+poetry install
+```
 Peliä pystyy suorittamaan komennolla Sports-Rally kansion alla:
 ```bash
 poetry run invoke start
