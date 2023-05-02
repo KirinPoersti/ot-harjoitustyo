@@ -1,6 +1,7 @@
 import pygame
 import sys
-import math
+import os
+import csv
 
 pygame.init()
 
@@ -21,6 +22,17 @@ pygame.display.set_caption("Long Jump")
 clock = pygame.time.Clock()
 
 font = pygame.font.Font(pygame.font.get_default_font(), 32)
+
+
+class Button:
+    def __init__(self, text, rect, color):
+        self.text = text
+        self.rect = pygame.Rect(rect)
+        self.color = color
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, self.color, self.rect)
+        draw_text(self.text, 24, self.rect.centerx, self.rect.centery, FONT_COLOR)
 
 
 class SoundManager:
@@ -126,6 +138,13 @@ def game_loop():
     attempt_number = 1
     attempt_scores = []
 
+    # Check if the scoreboard file exists
+    scoreboard_file = "src/resources/scoreboard.csv"
+    if not os.path.isfile(scoreboard_file):
+        with open(scoreboard_file, mode="w", newline="") as file:
+            writer = csv.writer(file)
+            writer.writerow(["Name", "Score"])
+
     while True:
         screen.fill(BACKGROUND_COLOR)
 
@@ -217,7 +236,33 @@ def game_loop():
             attempts -= 1
 
             if attempts == 0:
+                pygame.time.delay(5000)
                 game_state = "end_game"
+                # Get the player's name for the best attempt
+                name = input("Enter your name: ")
+                best_result = max(attempt_scores)
+                # Append the player's name and score to the scoreboard list
+                scoreboard.append((name, best_result))
+                # Update the scoreboard file
+                with open(scoreboard_file, mode="a", newline="") as file:
+                    writer = csv.writer(file)
+                    writer.writerow([name, best_result])
+                with open(scoreboard_file, mode="r", newline="") as file:
+                    reader = csv.reader(file)
+                    next(reader)  # Skip the header row
+                    scores = [(row[0], float(row[1])) for row in reader]
+
+                # Sort the scores in descending order
+                scores.sort(key=lambda x: x[1], reverse=True)
+
+                # Display the top 10 scores
+                top_scores = scores[:10]
+
+                # Print the scores
+                print("Top Scores:")
+                for i, score in enumerate(top_scores):
+                    print(f"{i+1}. {score[0]}: {score[1]}m")
+
             else:
                 game_state = "countdown"
                 countdown_timer = pygame.time.get_ticks()
@@ -269,15 +314,49 @@ def game_loop():
                     FONT_COLOR,
                 )
 
-            pygame.display.flip()
-            pygame.time.delay(5000)
-            break
+            # Display the scoreboard
+            with open(scoreboard_file, mode="r", newline="") as file:
+                reader = csv.reader(file)
+                next(reader)  # Skip the header row
+                scores = [(row[0], float(row[1])) for row in reader]
+                scores.sort(key=lambda x: x[1], reverse=True)
+
+                draw_text("Top Scores:", 24, SCREEN_WIDTH // 2, 300, FONT_COLOR)
+                for i, score in enumerate(scores[:10]):
+                    draw_text(
+                        f"{i+1}. {score[0]}: {score[1]}m",
+                        20,
+                        SCREEN_WIDTH // 2,
+                        340 + i * 20,
+                        FONT_COLOR,
+                    )
+
+            # Display buttons
+            restart_button = Button("Restart", (300, 450, 200, 50), (255, 174, 67))
+            quit_button = Button("Quit", (300, 525, 200, 50), (255, 174, 67))
+
+            buttons = [restart_button, quit_button]
+            for button in buttons:
+                button.draw(screen)
+
+            # Check button clicks
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button == 1:
+                        mouse_pos = event.pos
+                        if restart_button.rect.collidepoint(mouse_pos):
+                            sound_manager.play_button_sound()
+                            return  # Restart the game
+                        elif quit_button.rect.collidepoint(mouse_pos):
+                            sound_manager.play_button_sound()
+                            pygame.quit()
+                            sys.exit()
 
         pygame.display.flip()
         clock.tick(FPS)
-
-    pygame.quit()
-    sys.exit()
 
 
 def calculate_landing_point(score):

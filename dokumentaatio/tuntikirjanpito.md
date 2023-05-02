@@ -9,3 +9,5 @@ päivä | aika | mitä tein
 24.4  /    3    /Pelin Long jump-osio osittain tehty
 
 25.4  /    5    / Pelin Long jump-osio kokonaan tehty
+
+2.5  /     8    / Peilin viimeisttely, mahdollisien parannuksien korjaus
