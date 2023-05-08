@@ -1,6 +1,7 @@
-import pygame
 import sys
 import subprocess
+import pygame
+from classes.pong_class import SoundManager
 
 
 def main():
@@ -24,14 +25,16 @@ def main():
     button_pvp = pygame.Rect(300, 325, 200, 50)
     button_exit = pygame.Rect(300, 400, 200, 50)
 
-    def draw_text_with_shadow(text, size, x, y, color, shadow_color, offset=(2, 2)):
+    def draw_text_with_shadow(
+        text, size, text_x, text_y, color, shadow_color, offset=(2, 2)
+    ):
         font = pygame.font.Font(pygame.font.get_default_font(), size)
         text_surface = font.render(text, True, color)
         shadow_surface = font.render(text, True, shadow_color)
         text_rect = text_surface.get_rect()
         shadow_rect = shadow_surface.get_rect()
-        text_rect.center = (x, y)
-        shadow_rect.center = (x + offset[0], y + offset[1])
+        text_rect.center = (text_x, text_y)
+        shadow_rect.center = (text_x + offset[0], text_y + offset[1])
         screen.blit(shadow_surface, shadow_rect)
         screen.blit(text_surface, text_rect)
 
@@ -49,11 +52,11 @@ def main():
                 # Check if the user clicked on any of the buttons
                 if button_practice.collidepoint(event.pos):
                     button_sound.play()
-                    open_file("src/pong/pong_practice.py")
+                    open_file("src/pong_practice.py")
                     print("Starting practice mode...")
                 elif button_pvp.collidepoint(event.pos):
                     button_sound.play()
-                    open_file("src/pong/pong_pvp.py")
+                    open_file("src/pong_pvp.py")
                     print("Starting PvP mode...")
                 elif button_exit.collidepoint(event.pos):
                     # Exit the game

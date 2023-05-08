@@ -1,6 +1,7 @@
-import pygame
 import sys
-import math
+import pygame
+from classes.pong_class import SoundManager
+
 
 pygame.init()
 
@@ -21,29 +22,6 @@ pygame.display.set_caption("Long Jump")
 clock = pygame.time.Clock()
 
 font = pygame.font.Font(pygame.font.get_default_font(), 32)
-
-
-class SoundManager:
-    def __init__(self):
-        pygame.mixer.init()
-        self.jump_sound = pygame.mixer.Sound("src/resources/longjump_jump.mp3")
-        self.score_sound = pygame.mixer.Sound("src/resources/longjump_score.mp3")
-        self.bgm_sound = pygame.mixer.music.load("src/resources/longjump_bgm.mp3")
-        self.button_sound = pygame.mixer.Sound("src/resources/button.mp3")
-
-    def play_jump_sound(self):
-        self.jump_sound.play()
-
-    def play_score_sound(self):
-        self.score_sound.play()
-
-    def play_bgm_sound(self):
-        pygame.mixer.music.set_volume(0.25)
-        pygame.mixer.music.play(-1)
-
-    def play_button_sound(self):
-        self.button_sound.play()
-
 
 sound_manager = SoundManager()
 

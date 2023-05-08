@@ -61,12 +61,12 @@ def main_menu():
         if button_long_jump.collidepoint((mx, my)):
             if click:
                 button_sound.play()
-                subprocess.Popen(["python", "src/longjump/longjump.py"])
+                subprocess.Popen(["python", "src/longjump.py"])
                 break
         if button_pong.collidepoint((mx, my)):
             if click:
                 button_sound.play()
-                subprocess.Popen(["python", "src/pong/pong_main.py"])
+                subprocess.Popen(["python", "src/pong_main.py"])
                 break
         if button_exit.collidepoint((mx, my)):
             if click:
