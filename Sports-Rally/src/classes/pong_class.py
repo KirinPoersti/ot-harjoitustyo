@@ -26,29 +26,37 @@ class SoundManager:
 
     def play_paddle_sound(self):
         self.paddle_sound.play()
+        return "Sound played"
 
     def play_wall_sound(self):
         self.wall_sound.play()
+        return "Sound played"
 
     def play_pong_score_sound(self):
         self.pong_score_sound.play()
+        return "Sound played"
 
     def play_boosted_sound(self):
         self.boosted_sound.play()
+        return "Sound played"
 
     def play_pong_bgm_sound(self):
         self.pong_bgm_sound = pygame.mixer.music.load("src/resources/pong_bgm.mp3")
         pygame.mixer.music.set_volume(0.25)
         pygame.mixer.music.play(-1)
+        return "Bgm played"
 
     def play_button_sound(self):
         self.button_sound.play()
+        return "Sound played"
 
     def play_jump_sound(self):
         self.jump_sound.play()
+        return "Sound played"
 
     def play_longjump_score_sound(self):
         self.longjump_score_sound.play()
+        return "Sound played"
 
     def play_longjump_bgm_sound(self):
         self.longjump_bgm_sound = pygame.mixer.music.load(
@@ -56,11 +64,18 @@ class SoundManager:
         )
         pygame.mixer.music.set_volume(0.25)
         pygame.mixer.music.play(-1)
+        return "Bgm played"
+
+    def play_menu_bgm_sound(self):
+        self.longjump_bgm_sound = pygame.mixer.music.load("src/resources/bgm.mp3")
+        pygame.mixer.music.set_volume(0.25)
+        pygame.mixer.music.play(-1)
+        return "Bgm played"
 
 
 class Paddle:
-    def __init__(self, x, y, width, height, screen_height):
-        self.rect = pygame.Rect(x, y, width, height)
+    def __init__(self, paddle_x, paddle_y, width, height, screen_height):
+        self.rect = pygame.Rect(paddle_x, paddle_y, width, height)
         self.speed_normal = 5
         self.speed_boosted = 15
         self.screen_height = screen_height
@@ -90,9 +105,11 @@ class Paddle:
             and is_opponent
         ):
             self.rect.y += speed
+        return self.rect.y
 
     def draw(self, screen):
         pygame.draw.rect(screen, WHITE, self.rect)
+        return "Object drawn"
 
 
 class Ball:
@@ -115,20 +132,22 @@ class Ball:
         if self.practice_mode:
             self.ball_dx, self.ball_dy = -speed, speed
         else:
-            self.ball_dx, self.ball_dy = -speed, speed
+            self.ball_dx, self.ball_dy = speed, speed
 
     def reset_ball_practice(self):
-        self.ball.x = self.width // 2 - self.ball_radius
-        self.ball.y = self.height // 2 - self.ball_radius
+        self.ball.x = self.width // 2 - self.ball_radius // 2
+        self.ball.y = self.height // 2 - self.ball_radius // 2
         angle = random.uniform(math.radians(315), math.radians(405))
         self.ball_dx = -abs(self.speed) * math.cos(angle)
         self.ball_dy = self.speed * math.sin(angle)
+        return "Ball reset"
 
     def reset_ball_pvp(self, granter=None):
-        self.ball.x = self.width // 2 - self.ball_radius
-        self.ball.y = self.height // 2 - self.ball_radius
+        self.ball.x = self.width // 2 - self.ball_radius // 2
+        self.ball.y = self.height // 2 - self.ball_radius // 2
         self.ball_dx = -abs(self.speed) if granter == "player" else abs(self.speed)
         self.ball_dy = self.speed
+        return "Ball reset"
 
     def move_ball_practice(
         self, player_paddle, player_score, opponent_score, opponent_paddle=None
@@ -137,26 +156,33 @@ class Ball:
         self.ball.y += self.ball_dy
 
         if self.ball.colliderect(player_paddle) and self.ball_dx < 0:
+            print("Player paddle collision")
             self.sound_manager.play_paddle_sound()
             self.ball_dx = abs(self.speed)
             player_score += 1
             self.reset_ball_practice()
-
+        # even tho opponent paddle does not exist in practice mode
+        # but I've noticed that if the exact parameter does not exist,
+        # it would create errors causing the game to either not launch at all or just crash
+        # hence keeping the following if loop is just to make sure that the game runs with ease
         if (
             opponent_paddle is not None
             and self.ball.colliderect(opponent_paddle)
             and self.ball_dx > 0
         ):
+            print("Opponent paddle collision")
             self.sound_manager.play_paddle_sound()
             self.ball_dx = -abs(self.speed)
             opponent_score += 1
             self.reset_ball_practice()
 
         if self.ball.top <= 0 or self.ball.bottom >= self.height:
+            print("Wall collision")
             self.sound_manager.play_wall_sound()
             self.ball_dy *= -1
 
         if self.ball.left <= 0 or self.ball.right >= self.width:
+            print("Out of bounds")
             self.reset_ball_practice()
 
         return player_score, opponent_score

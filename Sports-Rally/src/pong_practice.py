@@ -1,5 +1,5 @@
-import pygame
 import sys
+import pygame
 from classes.pong_class import Paddle, Ball, SoundManager, StaminaSystem, GameObjects
 
 pygame.init()

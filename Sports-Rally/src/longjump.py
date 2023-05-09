@@ -208,12 +208,13 @@ def game_loop():
 
             draw_region_lines()
             draw_text(
-                "Score: {:.2f}m".format(score),
+                f"Score: {score:.2f}m",
                 32,
                 SCREEN_WIDTH // 2,
                 SCREEN_HEIGHT // 2,
                 FONT_COLOR,
             )
+
             pygame.display.flip()
             pygame.time.delay(2000)
             sound_manager.play_score_sound()
@@ -270,35 +271,6 @@ def calculate_landing_point(score):
     else:
         landing_point = 530 + 135 * (score - 7.5) / (10 - 7.5)
     return landing_point
-
-
-def player_jump(player_rect, landing_point):
-    jump_speed = 200 / FPS
-    jump_height = 50
-
-    while player_rect.y > GROUND_Y - 50 - jump_height:
-        player_rect.y -= jump_speed
-        screen.fill(BACKGROUND_COLOR)
-        pygame.draw.line(
-            screen, GROUND_COLOR, (0, GROUND_Y), (SCREEN_WIDTH, GROUND_Y), 5
-        )
-        draw_region_lines()
-        pygame.draw.rect(screen, PLAYER_COLOR, player_rect)
-        pygame.display.flip()
-        clock.tick(FPS)
-
-    while player_rect.x < landing_point:
-        player_rect.x += jump_speed
-        if player_rect.y < GROUND_Y - 50:
-            player_rect.y += jump_speed
-        screen.fill(BACKGROUND_COLOR)
-        pygame.draw.line(
-            screen, GROUND_COLOR, (0, GROUND_Y), (SCREEN_WIDTH, GROUND_Y), 5
-        )
-        draw_region_lines()
-        pygame.draw.rect(screen, PLAYER_COLOR, player_rect)
-        pygame.display.flip()
-        clock.tick(FPS)
 
 
 if __name__ == "__main__":
