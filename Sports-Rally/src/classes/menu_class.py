@@ -1,78 +1,71 @@
-import pygame
 import sys
 import subprocess
-
-# Button class
-class Button:
-    def __init__(self, x, y, width, height, text, font_size, text_color, button_color, action=None):
-        self.rect = pygame.Rect(x, y, width, height)
-        self.text = text
-        self.font_size = font_size
-        self.text_color = text_color
-        self.button_color = button_color
-        self.action = action
-
-    def draw(self, screen):
-        pygame.draw.rect(screen, self.button_color, self.rect)
-        draw_text_with_shadow(screen, self.text, self.font_size, self.rect.centerx, self.rect.centery, self.text_color)
-
-    def is_clicked(self, event):
-        if event.type == pygame.MOUSEBUTTONDOWN and self.rect.collidepoint(event.pos):
-            return True
-        return False
-
-# Menu class
-class Menu:
-    def __init__(self, screen, background_image_path=None):
-        self.screen = screen
-        if background_image_path:
-            self.background_image = pygame.image.load(background_image_path)
-        else:
-            self.background_image = None
-        self.buttons = []
-
-    def add_button(self, button):
-        self.buttons.append(button)
-
-    def draw(self):
-        if self.background_image:
-            self.screen.blit(self.background_image, (0, 0))
-        for button in self.buttons:
-            button.draw(self.screen)
-
-    def handle_events(self, event):
-        for button in self.buttons:
-            if button.is_clicked(event):
-                if button.action:
-                    button.action()
-                return True
-        return False
-
-# Text and shadow drawing function
-def draw_text_with_shadow(screen, text, size, x, y, color, shadow_color=(100, 100, 100), offset=(2, 2)):
-    font = pygame.font.Font(pygame.font.get_default_font(), size)
-    text_surface = font.render(text, True, color)
-    shadow_surface = font.render(text, True, shadow_color)
-    text_rect = text_surface.get_rect()
-    shadow_rect = shadow_surface.get_rect()
-    text_rect.center = (x, y)
-    shadow_rect.center = (x + offset[0], y + offset[1])
-    screen.blit(shadow_surface, shadow_rect)
-    screen.blit(text_surface, text_rect)
-
-# Button action functions
-def open_pong_practice():
-    subprocess.Popen(['python', 'src/pong/pong_practice.py'])
-    print("Starting practice mode...")
-
-def open_pong_pvp():
-    subprocess.Popen(['python', 'src/pong/pong_pvp.py'])
-    print("Starting PvP mode...")
-
-def exit_game():
-    pygame.quit()
-    sys.exit()
-
-# Main function
+import pygame
 
 
+class SoundManager:
+    def __init__(self):
+        pygame.mixer.init()
+        self.paddle_sound = pygame.mixer.Sound("src/resources/pong_paddle.mp3")
+        self.wall_sound = pygame.mixer.Sound("src/resources/pong_wall.mp3")
+        self.pong_score_sound = pygame.mixer.Sound("src/resources/pong_score.mp3")
+        self.boosted_sound = pygame.mixer.Sound("src/resources/pong_boosted.mp3")
+        self.pong_bgm_sound = pygame.mixer.music.load("src/resources/pong_bgm.mp3")
+
+        self.button_sound = pygame.mixer.Sound("src/resources/button.mp3")
+
+        self.jump_sound = pygame.mixer.Sound("src/resources/longjump_jump.mp3")
+        self.longjump_score_sound = pygame.mixer.Sound(
+            "src/resources/longjump_score.mp3"
+        )
+        self.longjump_bgm_sound = pygame.mixer.music.load(
+            "src/resources/longjump_bgm.mp3"
+        )
+
+    def play_paddle_sound(self):
+        self.paddle_sound.play()
+        return "Sound played"
+
+    def play_wall_sound(self):
+        self.wall_sound.play()
+        return "Sound played"
+
+    def play_pong_score_sound(self):
+        self.pong_score_sound.play()
+        return "Sound played"
+
+    def play_boosted_sound(self):
+        self.boosted_sound.play()
+        return "Sound played"
+
+    def play_pong_bgm_sound(self):
+        self.pong_bgm_sound = pygame.mixer.music.load("src/resources/pong_bgm.mp3")
+        pygame.mixer.music.set_volume(0.25)
+        pygame.mixer.music.play(-1)
+        return "Bgm played"
+
+    def play_button_sound(self):
+        self.button_sound.play()
+        return "Sound played"
+
+    def play_jump_sound(self):
+        self.jump_sound.play()
+        return "Sound played"
+
+    def play_longjump_score_sound(self):
+        self.longjump_score_sound.play()
+        return "Sound played"
+
+    def play_longjump_bgm_sound(self):
+        self.longjump_bgm_sound = pygame.mixer.music.load(
+            "src/resources/longjump_bgm.mp3"
+        )
+        pygame.mixer.music.set_volume(0.25)
+        pygame.mixer.music.play(-1)
+        return "Bgm played"
+
+    def play_menu_bgm_sound(self):
+        self.longjump_bgm_sound = pygame.mixer.music.load("src/resources/bgm.mp3")
+        pygame.mixer.music.set_volume(0.25)
+        pygame.mixer.music.play(-1)
+        return "Bgm played"

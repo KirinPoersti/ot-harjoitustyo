@@ -1,28 +1,24 @@
 import sys
 import subprocess
 import pygame
-from classes.pong_class import SoundManager
+from ..classes.menu_class import SoundManager
 
 
 def main():
     pygame.init()
 
-    # Define some colors
-    BLACK = (0, 0, 0)
-    WHITE = (255, 255, 255)
+    white_color = (255, 255, 255)
 
-    background_image = pygame.image.load("src/resources/pong_background.jpg")
-
-    # Set the width and height of the screen
+    background_image = pygame.image.load("src/resources/longjump_background.jpg")
     size = (800, 600)
     screen = pygame.display.set_mode(size)
 
-    pygame.display.set_caption("Pong")
+    pygame.display.set_caption("Long Jump")
 
     button_sound = pygame.mixer.Sound("src/resources/button.mp3")
 
-    button_practice = pygame.Rect(300, 250, 200, 50)
-    button_pvp = pygame.Rect(300, 325, 200, 50)
+    button_game = pygame.Rect(300, 250, 200, 50)
+    button_leaderboard = pygame.Rect(300, 325, 200, 50)
     button_exit = pygame.Rect(300, 400, 200, 50)
 
     def draw_text_with_shadow(
@@ -39,48 +35,39 @@ def main():
         screen.blit(text_surface, text_rect)
 
     def open_file(file_name):
-        subprocess.Popen(["python", file_name])
+        subprocess.Popen(["python", "-m", file_name])
 
-    # Main loop
     done = False
     while not done:
-        # --- Event Processing ---
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done = True
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                # Check if the user clicked on any of the buttons
-                if button_practice.collidepoint(event.pos):
+                if button_game.collidepoint(event.pos):
                     button_sound.play()
-                    open_file("src/pong_practice.py")
-                    print("Starting practice mode...")
-                elif button_pvp.collidepoint(event.pos):
+                    open_file("src.longjump.longjump")
+                    print("Starting game mode...")
+                elif button_leaderboard.collidepoint(event.pos):
                     button_sound.play()
-                    open_file("src/pong_pvp.py")
-                    print("Starting PvP mode...")
+                    open_file("src.longjump.longjump_leaderboard")
+                    print("Fetching data...")
                 elif button_exit.collidepoint(event.pos):
-                    # Exit the game
                     button_sound.play()
                     done = True
 
-        # --- Drawing ---
-        # Clear the screen
         screen.blit(background_image, (0, 0))
 
-        # Draw the text
-        pygame.draw.rect(screen, (255, 174, 67), button_practice)
-        pygame.draw.rect(screen, (255, 174, 67), button_pvp)
+        pygame.draw.rect(screen, (255, 174, 67), button_game)
+        pygame.draw.rect(screen, (255, 174, 67), button_leaderboard)
         pygame.draw.rect(screen, (255, 174, 67), button_exit)
 
-        draw_text_with_shadow("Practice", 24, 400, 275, WHITE, (100, 100, 100))
-        draw_text_with_shadow("PvP", 24, 400, 350, WHITE, (100, 100, 100))
-        draw_text_with_shadow("Exit", 24, 400, 425, WHITE, (100, 100, 100))
-        draw_text_with_shadow("Pong", 48, 400, 150, WHITE, (100, 100, 100))
+        draw_text_with_shadow("Play", 24, 400, 275, white_color, (100, 100, 100))
+        draw_text_with_shadow("Leaderboard", 24, 400, 350, white_color, (100, 100, 100))
+        draw_text_with_shadow("Exit", 24, 400, 425, white_color, (100, 100, 100))
+        draw_text_with_shadow("Long Jump", 48, 400, 150, white_color, (100, 100, 100))
 
-        # Update the screen
         pygame.display.flip()
 
-    # Close the window and quit
     pygame.quit()
     sys.exit()
 

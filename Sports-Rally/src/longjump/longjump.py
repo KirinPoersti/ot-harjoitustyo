@@ -1,6 +1,7 @@
 import sys
+import csv
 import pygame
-from classes.pong_class import SoundManager
+from ..classes.menu_class import SoundManager
 
 
 pygame.init()
@@ -17,28 +18,27 @@ POLE_COLOR = (255, 100, 100)
 FPS = 60
 REGION_WIDTH = 135
 
+LEADERBOARD_FILE = "src/resources/leaderboard.csv"
+
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Long Jump")
 clock = pygame.time.Clock()
 
-font = pygame.font.Font(pygame.font.get_default_font(), 32)
-
 sound_manager = SoundManager()
 
 
-def draw_text(text, size, x, y, color):
+def draw_text(text, size, object_x, object_y, color):
     font = pygame.font.Font(pygame.font.get_default_font(), size)
     text_surface = font.render(text, True, color)
     text_rect = text_surface.get_rect()
-    text_rect.center = (x, y)
+    text_rect.center = (object_x, object_y)
     screen.blit(text_surface, text_rect)
 
 
 def draw_region_lines():
     region_line_x_values = [125, 260, 395, 530, 665]
     region_line_meters = [1, 2.5, 5, 7.5, 10]
-    for i in range(len(region_line_x_values)):
-        x = region_line_x_values[i]
+    for i, x in enumerate(region_line_x_values):
         meters = region_line_meters[i]
         draw_text(f"{meters}m", 20, x, GROUND_Y - 30, FONT_COLOR)
         pygame.draw.line(
@@ -46,8 +46,96 @@ def draw_region_lines():
         )
 
 
-def quadratic_bezier(t, p0, p1, p2):
-    return (1 - t) ** 2 * p0 + 2 * (1 - t) * t * p1 + t**2 * p2
+def get_player_name():
+    input_text = ""
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_BACKSPACE:
+                    input_text = input_text[:-1]
+                elif event.key == pygame.K_RETURN:
+                    return input_text
+                else:
+                    input_text += event.unicode
+        screen.fill(BACKGROUND_COLOR)
+        draw_text(
+            "Enter your name:",
+            32,
+            SCREEN_WIDTH // 2,
+            SCREEN_HEIGHT // 2 - 48,
+            FONT_COLOR,
+        )
+        draw_text(
+            input_text,
+            32,
+            SCREEN_WIDTH // 2,
+            SCREEN_HEIGHT // 2,
+            FONT_COLOR,
+        )
+        pygame.display.flip()
+        clock.tick(FPS)
+
+
+def calculate_landing_point(score):
+    if score <= 1:
+        landing_point = (score - 0) / (1 - 0)
+    elif score <= 2.5:
+        landing_point = 125 + 135 * (score - 1) / (2.5 - 1)
+    elif score <= 5:
+        landing_point = 260 + 135 * (score - 2.5) / (5 - 2.5)
+    elif score <= 7.5:
+        landing_point = 395 + 135 * (score - 5) / (7.5 - 5)
+    else:
+        landing_point = 530 + 135 * (score - 7.5) / (10 - 7.5)
+    return landing_point
+
+
+def save_score(name, score):
+    with open(LEADERBOARD_FILE, "a", newline="", encoding="utf-8") as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow([name, score])
+
+
+def display_leaderboard():
+    scores = load_scores(LEADERBOARD_FILE)
+    scores.sort(key=lambda x: x[1], reverse=True)
+
+    screen.fill((0, 0, 0))
+
+    font = pygame.font.Font(None, 36)
+    text_color = (255, 255, 255)
+
+    for i, (player_name, score) in enumerate(scores):
+        text = font.render(f"{i + 1}. {player_name}: {score}", True, text_color)
+        screen.blit(text, (50, 50 + i * 40))
+
+    done = False
+    while not done:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                done = True
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    done = True
+
+        pygame.display.flip()
+
+
+def load_scores(file_path):
+    scores = []
+    with open(file_path, "r", encoding="utf-8") as csvfile:
+        reader = csv.reader(csvfile)
+        for row in reader:
+            scores.append((row[0], float(row[1])))
+    scores.sort(key=lambda x: x[1], reverse=True)
+    return scores
+
+
+def quadratic_bezier(t_0, p_0, p_1, p_2):
+    return (1 - t_0) ** 2 * p_0 + 2 * (1 - t_0) * t_0 * p_1 + t_0**2 * p_2
 
 
 def player_jump(player_rect, landing_point):
@@ -80,7 +168,7 @@ def player_jump(player_rect, landing_point):
 
 
 def game_loop():
-    sound_manager.play_bgm_sound()
+    sound_manager.play_longjump_bgm_sound()
     player_rect = pygame.Rect(PLAYER_START_POS, GROUND_Y - 50, 25, 50)
     pole_rect = pygame.Rect(SCREEN_WIDTH, GROUND_Y - 150, 10, 150)
     pole_speed = 200 / FPS
@@ -93,15 +181,11 @@ def game_loop():
     countdown_timer = pygame.time.get_ticks()
     speed_timer = 0
     fail_timer = 0
-    jump_timer = 0
 
     game_state = "countdown"
 
     attempts = 3
-    best_result = 0
-    scoreboard = []
 
-    attempt_number = 1
     attempt_scores = []
 
     while True:
@@ -217,7 +301,7 @@ def game_loop():
 
             pygame.display.flip()
             pygame.time.delay(2000)
-            sound_manager.play_score_sound()
+            sound_manager.play_longjump_score_sound()
 
         elif game_state == "failed":
             if fail_timer == 0:
@@ -232,6 +316,7 @@ def game_loop():
                 fail_timer = 0
 
         elif game_state == "end_game":
+            best_score = max(attempt_scores)
             draw_text(
                 "Attempts finished",
                 32,
@@ -250,6 +335,25 @@ def game_loop():
 
             pygame.display.flip()
             pygame.time.delay(5000)
+
+            # Get player's name and save their best score
+            player_name = get_player_name()
+            save_score(player_name, best_score)
+
+            # Load leaderboard and display it
+            leaderboard = load_scores()
+            leaderboard.sort(key=lambda x: -float(x[1]))
+            for idx, (name, score) in enumerate(leaderboard):
+                draw_text(
+                    f"{idx+1}. {name}: {score}m",
+                    24,
+                    50,
+                    50 + idx * 24,
+                    FONT_COLOR,
+                )
+
+            pygame.display.flip()
+            pygame.time.delay(10000)
             break
 
         pygame.display.flip()
@@ -257,20 +361,6 @@ def game_loop():
 
     pygame.quit()
     sys.exit()
-
-
-def calculate_landing_point(score):
-    if score <= 1:
-        landing_point = (score - 0) / (1 - 0)
-    elif score <= 2.5:
-        landing_point = 125 + 135 * (score - 1) / (2.5 - 1)
-    elif score <= 5:
-        landing_point = 260 + 135 * (score - 2.5) / (5 - 2.5)
-    elif score <= 7.5:
-        landing_point = 395 + 135 * (score - 5) / (7.5 - 5)
-    else:
-        landing_point = 530 + 135 * (score - 7.5) / (10 - 7.5)
-    return landing_point
 
 
 if __name__ == "__main__":

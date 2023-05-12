@@ -1,6 +1,7 @@
 import sys
 import pygame
-from classes.pong_class import Paddle, Ball, SoundManager, StaminaSystem, GameObjects
+from ..classes.menu_class import SoundManager
+from ..classes.pong_class import Paddle, Ball, StaminaSystem, GameObjects
 
 pygame.init()
 
@@ -23,7 +24,7 @@ PLAYER_SCORE = 0
 stamina_system = StaminaSystem(800, 600, 1000, 300, 5, display_mode="left")
 
 game_objects = GameObjects(WIDTH, HEIGHT, player_paddle, ball, stamina_system)
-# Exit button
+
 button_width, button_height = 40, 40
 exit_button = pygame.Rect(WIDTH - button_width - 10, 10, button_width, button_height)
 

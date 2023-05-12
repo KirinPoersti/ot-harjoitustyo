@@ -1,7 +1,6 @@
-import pygame
 import sys
-import os
 import subprocess
+import pygame
 
 pygame.init()
 
@@ -14,7 +13,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Sports Rally")
 clock = pygame.time.Clock()
 
-font = pygame.font.Font(pygame.font.get_default_font(), 32)
+FONT = pygame.font.Font(pygame.font.get_default_font(), 32)
 
 # Background image
 background_image = pygame.image.load("src/resources/background.jpg")
@@ -26,14 +25,16 @@ pygame.mixer.music.set_volume(0.25)
 pygame.mixer.music.play(-1)
 
 
-def draw_text_with_shadow(text, size, x, y, color, shadow_color, offset=(2, 2)):
+def draw_text_with_shadow(
+    text, size, object_x, object_y, color, shadow_color, offset=(2, 2)
+):
     font = pygame.font.Font(pygame.font.get_default_font(), size)
     text_surface = font.render(text, True, color)
     shadow_surface = font.render(text, True, shadow_color)
     text_rect = text_surface.get_rect()
     shadow_rect = shadow_surface.get_rect()
-    text_rect.center = (x, y)
-    shadow_rect.center = (x + offset[0], y + offset[1])
+    text_rect.center = (object_x, object_y)
+    shadow_rect.center = (object_x + offset[0], object_y + offset[1])
     screen.blit(shadow_surface, shadow_rect)
     screen.blit(text_surface, text_rect)
 
@@ -61,12 +62,12 @@ def main_menu():
         if button_long_jump.collidepoint((mx, my)):
             if click:
                 button_sound.play()
-                subprocess.Popen(["python", "src/longjump.py"])
+                subprocess.Popen(["python", "-m", "src.longjump.longjump_main"])
                 break
         if button_pong.collidepoint((mx, my)):
             if click:
                 button_sound.play()
-                subprocess.Popen(["python", "src/pong_main.py"])
+                subprocess.Popen(["python", "-m", "src.pong.pong_main"])
                 break
         if button_exit.collidepoint((mx, my)):
             if click:
