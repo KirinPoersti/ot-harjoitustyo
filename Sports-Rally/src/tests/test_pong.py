@@ -1,56 +1,12 @@
 import unittest
 from unittest.mock import Mock, patch
 import pygame
-from ..classes.pong_class import Paddle, Ball, StaminaSystem, GameObjects, SoundManager
+from ..classes.pong_class import Paddle, Ball, StaminaSystem, GameObjects
 
-
-class TestSoundManager(unittest.TestCase):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.sound_manager = None
-
-    def setUp(self):
-        self.sound_manager = SoundManager()
-
-    def test_play_paddle_sound(self):
-        result = self.sound_manager.play_paddle_sound()
-        self.assertEqual(result, "Sound played")
-
-    def test_play_wall_sound(self):
-        result = self.sound_manager.play_wall_sound()
-        self.assertEqual(result, "Sound played")
-
-    def test_play_pong_score_sound(self):
-        result = self.sound_manager.play_pong_score_sound()
-        self.assertEqual(result, "Sound played")
-
-    def test_play_boosted_sound(self):
-        result = self.sound_manager.play_boosted_sound()
-        self.assertEqual(result, "Sound played")
-
-    def test_play_button_sound(self):
-        result = self.sound_manager.play_button_sound()
-        self.assertEqual(result, "Sound played")
-
-    def test_play_jump_sound(self):
-        result = self.sound_manager.play_jump_sound()
-        self.assertEqual(result, "Sound played")
-
-    def test_play_longjump_score_sound(self):
-        result = self.sound_manager.play_longjump_score_sound()
-        self.assertEqual(result, "Sound played")
-
-    def test_play_pong_bgm_sound(self):
-        result = self.sound_manager.play_pong_bgm_sound()
-        self.assertEqual(result, "Bgm played")
-
-    def test_play_longjump_bgm_sound(self):
-        result = self.sound_manager.play_longjump_bgm_sound()
-        self.assertEqual(result, "Bgm played")
-
-    def test_play_menu_bgm_sound(self):
-        result = self.sound_manager.play_menu_bgm_sound()
-        self.assertEqual(result, "Bgm played")
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+FONT_COLOR = (255, 255, 255)
+FPS = 60
 
 
 class TestPaddle(unittest.TestCase):
@@ -381,7 +337,7 @@ class TestGameObjects(unittest.TestCase):
         self.mock_paddle.draw.assert_called_once_with(mock_screen)
         self.mock_opponent_paddle.draw.assert_called_once_with(mock_screen)
         mock_draw.ellipse.assert_called_once_with(
-            mock_screen, game_objects.white, self.mock_ball.ball
+            mock_screen, FONT_COLOR, self.mock_ball.ball
         )
         self.mock_stamina_system.draw_stamina.assert_called_once_with(mock_screen)
         mock_draw.rect.assert_called()

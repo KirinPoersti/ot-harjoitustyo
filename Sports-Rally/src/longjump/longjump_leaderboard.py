@@ -1,9 +1,8 @@
 import sys
 import pygame
 from .longjump import load_scores
-from ..classes.menu_class import SoundManager
 
-sound_manager = SoundManager()
+
 pygame.init()
 
 SCREEN_WIDTH = 800

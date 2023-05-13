@@ -25,8 +25,6 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Long Jump")
 clock = pygame.time.Clock()
 
-sound_manager = SoundManager()
-
 
 def draw_text(text, size, object_x, object_y, color):
     font = pygame.font.Font(pygame.font.get_default_font(), size)
@@ -169,6 +167,7 @@ def player_jump(player_rect, landing_point):
 
 
 def game_loop():
+    sound_manager = SoundManager()
     sound_manager.play_longjump_bgm_sound()
     player_rect = pygame.Rect(PLAYER_START_POS, GROUND_Y - 50, 25, 50)
     pole_rect = pygame.Rect(SCREEN_WIDTH, GROUND_Y - 150, 10, 150)

@@ -308,6 +308,9 @@ class GameObjects:
         pygame.draw.ellipse(screen, FONT_COLOR, self.ball.ball)
         for y in range(0, SCREEN_HEIGHT, 40):
             pygame.draw.rect(screen, FONT_COLOR, (SCREEN_WIDTH // 2 - 2, y + 40, 4, 20))
+        pygame.draw.line(
+            screen, FONT_COLOR, (0, 0), (SCREEN_WIDTH, SCREEN_HEIGHT)
+        )  # added this line
         score_text = self.font.render(f"Score: {player_score}", True, FONT_COLOR)
         screen.blit(score_text, (self.width // 2 - score_text.get_width() // 2, 10))
 
@@ -320,9 +323,15 @@ class GameObjects:
         pygame.draw.ellipse(screen, FONT_COLOR, self.ball.ball)
         for y in range(0, SCREEN_HEIGHT, 40):
             pygame.draw.rect(screen, FONT_COLOR, (SCREEN_WIDTH // 2 - 2, y + 40, 4, 20))
-        score_text = self.font.render(
-            f"{player_score} - {opponent_score}", True, FONT_COLOR
+        player_score_text = self.font.render(
+            f"Player Score: {player_score}", True, FONT_COLOR
         )
-        screen.blit(score_text, (self.width // 2 - score_text.get_width() // 2, 10))
+        opponent_score_text = self.font.render(
+            f"Opponent Score: {opponent_score}", True, FONT_COLOR
+        )
+        screen.blit(player_score_text, (10, 10))
+        screen.blit(
+            opponent_score_text, (self.width - opponent_score_text.get_width() - 10, 10)
+        )
 
         stamina_system.draw_stamina(screen)

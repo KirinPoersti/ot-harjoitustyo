@@ -67,8 +67,8 @@ message_text = font.render(MESSAGE, True, FONT_COLOR)
 screen.blit(
     message_text,
     (
-        SCREEN_WIDTH // 2 - message_text.get_SCREEN_width() // 2,
-        SCREEN_HEIGHT // 2 - message_text.get_SCREEN_height() // 2,
+        SCREEN_WIDTH // 2 - message_text.get_width() // 2,
+        SCREEN_HEIGHT // 2 - message_text.get_height() // 2,
     ),
 )
 pygame.display.flip()
