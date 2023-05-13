@@ -309,25 +309,6 @@ class GameObjects:
         score_text = self.font.render(f"Score: {player_score}", True, self.white)
         screen.blit(score_text, (self.width // 2 - score_text.get_width() // 2, 10))
 
-        button_width, button_height = 40, 40
-        exit_button = pygame.Rect(
-            800 - button_width - 10, 10, button_width, button_height
-        )
-        pygame.draw.rect(screen, WHITE, exit_button, 3)
-        pygame.draw.line(
-            screen,
-            WHITE,
-            (exit_button.left + 10, exit_button.top + 10),
-            (exit_button.right - 10, exit_button.bottom - 10),
-            3,
-        )
-        pygame.draw.line(
-            screen,
-            WHITE,
-            (exit_button.left + 10, exit_button.bottom - 10),
-            (exit_button.right - 10, exit_button.top + 10),
-            3,
-        )
         stamina_system.draw_stamina(screen)
 
     def draw(self, screen, player_score, opponent_score, stamina_system):

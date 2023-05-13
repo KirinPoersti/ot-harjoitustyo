@@ -1,11 +1,14 @@
+import sys
 import pygame
 from .longjump import load_scores
+from ..classes.menu_class import Button, SoundManager
+
+sound_manager = SoundManager()
+pygame.init()
 
 
 def main():
-    pygame.init()
-
-    WHITE = (255, 255, 255)
+    white_color = (255, 255, 255)
 
     size = (800, 600)
     screen = pygame.display.set_mode(size)
@@ -21,9 +24,9 @@ def main():
         screen.fill((0, 0, 0))
 
         font = pygame.font.Font(None, 36)
-        text_color = WHITE
+        text_color = white_color
 
-        for i, (player_name, score) in enumerate(scores):
+        for i, (player_name, score) in enumerate(scores[:10]):
             text = font.render(f"{i + 1}. {player_name}: {score}m", True, text_color)
             screen.blit(text, (325, 85 + i * 40))
 
@@ -38,7 +41,6 @@ def main():
 
         display_leaderboard()
         pygame.display.flip()
-
     pygame.quit()
 
 

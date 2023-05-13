@@ -23,3 +23,5 @@ päivä | aika | mitä tein
 10.5/   6 / Lisää pong:n testejä
 
 11.5/   6   / Leaderboard lisätty pelille longjump, tiedostot siirretty omiin kansioihin
+
+12.5/  6  / Menujen toiminnallisuudet jattu luokkiin

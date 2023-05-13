@@ -25,9 +25,6 @@ stamina_system = StaminaSystem(800, 600, 1000, 300, 5, display_mode="left")
 
 game_objects = GameObjects(WIDTH, HEIGHT, player_paddle, ball, stamina_system)
 
-button_width, button_height = 40, 40
-exit_button = pygame.Rect(WIDTH - button_width - 10, 10, button_width, button_height)
-
 while True:
     clock.tick(FPS)
     keys = pygame.key.get_pressed()
@@ -36,16 +33,11 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1:
-                if exit_button.collidepoint(event.pos):
-                    pygame.quit()
-                    sys.exit()
         stamina_system.update_stamina(event, keys)
 
-    player_boost_active = stamina_system.boost_active
+    PLAYER_BOOST_ACTIVE = stamina_system.boost_active
 
-    player_paddle.move_paddle(keys, not player_boost_active)
+    player_paddle.move_paddle(keys, not PLAYER_BOOST_ACTIVE)
     PLAYER_SCORE, _ = ball.move_ball_practice(player_paddle, PLAYER_SCORE, 0)
 
     screen.fill((0, 0, 0))
