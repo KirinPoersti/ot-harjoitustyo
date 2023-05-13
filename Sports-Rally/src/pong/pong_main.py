@@ -15,8 +15,6 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Pong")
 clock = pygame.time.Clock()
 
-FONT = pygame.font.Font(pygame.font.get_default_font(), 32)
-
 background_image = pygame.image.load("src/resources/pong_background.jpg")
 
 

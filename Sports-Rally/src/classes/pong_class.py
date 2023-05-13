@@ -2,7 +2,10 @@ import random
 import math
 import pygame
 
-WHITE = (255, 255, 255)
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+FONT_COLOR = (255, 255, 255)
+FPS = 60
 
 
 class Paddle:
@@ -40,7 +43,7 @@ class Paddle:
         return self.rect.y
 
     def draw(self, screen):
-        pygame.draw.rect(screen, WHITE, self.rect)
+        pygame.draw.rect(screen, FONT_COLOR, self.rect)
         return "Object drawn"
 
 
@@ -296,17 +299,16 @@ class GameObjects:
         self.practice_mode = practice_mode
 
         self.font = pygame.font.Font(None, 50)
-        self.white = (255, 255, 255)
 
     def draw_practice(self, screen, player_score, stamina_system):
         screen.fill((0, 0, 0))
         self.player_paddle.draw(screen)
         if self.opponent_paddle is not None:
             self.opponent_paddle.draw(screen)
-        pygame.draw.ellipse(screen, self.white, self.ball.ball)
-        for y in range(0, 600, 40):
-            pygame.draw.rect(screen, WHITE, (800 // 2 - 2, y + 40, 4, 20))
-        score_text = self.font.render(f"Score: {player_score}", True, self.white)
+        pygame.draw.ellipse(screen, FONT_COLOR, self.ball.ball)
+        for y in range(0, SCREEN_HEIGHT, 40):
+            pygame.draw.rect(screen, FONT_COLOR, (SCREEN_WIDTH // 2 - 2, y + 40, 4, 20))
+        score_text = self.font.render(f"Score: {player_score}", True, FONT_COLOR)
         screen.blit(score_text, (self.width // 2 - score_text.get_width() // 2, 10))
 
         stamina_system.draw_stamina(screen)
@@ -315,11 +317,11 @@ class GameObjects:
         screen.fill((0, 0, 0))
         self.player_paddle.draw(screen)
         self.opponent_paddle.draw(screen)
-        pygame.draw.ellipse(screen, self.white, self.ball.ball)
-        for y in range(0, 600, 40):
-            pygame.draw.rect(screen, WHITE, (800 // 2 - 2, y + 40, 4, 20))
+        pygame.draw.ellipse(screen, FONT_COLOR, self.ball.ball)
+        for y in range(0, SCREEN_HEIGHT, 40):
+            pygame.draw.rect(screen, FONT_COLOR, (SCREEN_WIDTH // 2 - 2, y + 40, 4, 20))
         score_text = self.font.render(
-            f"{player_score} - {opponent_score}", True, self.white
+            f"{player_score} - {opponent_score}", True, FONT_COLOR
         )
         screen.blit(score_text, (self.width // 2 - score_text.get_width() // 2, 10))
 

@@ -3,7 +3,6 @@ import subprocess
 import pygame
 from ..classes.menu_class import SoundManager, Button, draw_text_with_shadow
 
-pygame.font.init()
 pygame.init()
 
 SCREEN_WIDTH = 800
@@ -14,8 +13,6 @@ FPS = 60
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Long Jump")
 clock = pygame.time.Clock()
-
-FONT = pygame.font.Font(pygame.font.get_default_font(), 32)
 
 background_image = pygame.image.load("src/resources/longjump_background.jpg")
 

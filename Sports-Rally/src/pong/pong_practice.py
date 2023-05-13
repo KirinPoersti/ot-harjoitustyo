@@ -5,25 +5,28 @@ from ..classes.pong_class import Paddle, Ball, StaminaSystem, GameObjects
 
 pygame.init()
 
-WIDTH, HEIGHT = 800, 600
-WHITE = (255, 255, 255)
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+FONT_COLOR = (255, 255, 255)
+FPS = 60
 font = pygame.font.Font(None, 36)
 
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Pong Practice")
 clock = pygame.time.Clock()
-FPS = 60
 
 sound_manager = SoundManager()
 
-player_paddle = Paddle(100, HEIGHT // 2 - 100 // 2, 20, 100, HEIGHT)
-ball = Ball(WIDTH, HEIGHT, 15, 5, sound_manager, practice_mode=True)
+player_paddle = Paddle(100, SCREEN_HEIGHT // 2 - 100 // 2, 20, 100, SCREEN_HEIGHT)
+ball = Ball(SCREEN_WIDTH, SCREEN_HEIGHT, 15, 5, sound_manager, practice_mode=True)
 
 PLAYER_SCORE = 0
 
 stamina_system = StaminaSystem(800, 600, 1000, 300, 5, display_mode="left")
 
-game_objects = GameObjects(WIDTH, HEIGHT, player_paddle, ball, stamina_system)
+game_objects = GameObjects(
+    SCREEN_WIDTH, SCREEN_HEIGHT, player_paddle, ball, stamina_system
+)
 
 while True:
     clock.tick(FPS)

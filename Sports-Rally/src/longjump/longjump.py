@@ -8,14 +8,15 @@ pygame.init()
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
+FONT_COLOR = (255, 255, 255)
+FPS = 60
+
 GROUND_Y = SCREEN_HEIGHT - 10
 PLAYER_START_POS = 100
-FONT_COLOR = (255, 255, 255)
 BACKGROUND_COLOR = (0, 0, 0)
 GROUND_COLOR = (200, 200, 200)
 PLAYER_COLOR = (255, 255, 255)
 POLE_COLOR = (255, 100, 100)
-FPS = 60
 REGION_WIDTH = 135
 
 LEADERBOARD_FILE = "src/resources/leaderboard.csv"
@@ -96,7 +97,7 @@ def calculate_landing_point(score):
 def save_score(name, score):
     with open(LEADERBOARD_FILE, "a", newline="", encoding="utf-8") as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerow([name, score])
+        writer.writerow([name, f"{score:.2f}"])
 
 
 def display_leaderboard():
@@ -129,7 +130,7 @@ def load_scores(file_path):
     with open(file_path, "r", encoding="utf-8") as csvfile:
         reader = csv.reader(csvfile)
         for row in reader:
-            scores.append((row[0], float(row[1])))
+            scores.append((row[0], round(float(row[1]), 2)))
     scores.sort(key=lambda x: x[1], reverse=True)
     return scores
 
@@ -336,18 +337,16 @@ def game_loop():
             pygame.display.flip()
             pygame.time.delay(5000)
 
-            # Get player's name and save their best score
             player_name = get_player_name()
             save_score(player_name, best_score)
 
-            # Load leaderboard and display it
-            leaderboard = load_scores()
+            leaderboard = load_scores("src/resources/leaderboard.csv")
             leaderboard.sort(key=lambda x: -float(x[1]))
             for idx, (name, score) in enumerate(leaderboard):
                 draw_text(
                     f"{idx+1}. {name}: {score}m",
                     24,
-                    50,
+                    700,
                     50 + idx * 24,
                     FONT_COLOR,
                 )
