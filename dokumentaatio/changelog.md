@@ -14,3 +14,7 @@
 - Olen yrittänyt ohjaajien ehdotuksien ja myös toisen kurssin suorittajan ehdotuksien avulla parantaa tätä peliä, osa ehdotuksista on saavutettu, mutta osa jäi nyt bugien takia tekemättä (esim. yritin laittaa koodit johonkin siistiin luokkaan, mutta lopuksi se toi enemmän virheitä kuin hyötyä ja suurin osa ajasta en edes saatu peli käytiin näiden korjauksien jälkeen).
 - Testit jäi myös tekemättä sillä on jollakin tasolla aika vaikea tehdä testejä nykyisen koodin rakenteen perusteella. (seuraus siitä että peli ei ole alustavasti tehty luokkien avulla).
 - Mutta olen myös lisäänyt äänieffektit ja scoreboard (longjump:ia varten, mutta tätä on poistettu väliaikaisesti releasessta, sillä pelistä tullut epävakaa sen takia) peleihin.
+
+# 14.5.2023 / Viikko 7
+- Koodin viimeistely, luokkiin jako, testien teko ja toiminnallisuuden hiomainen.
+- Repon viimeistely
