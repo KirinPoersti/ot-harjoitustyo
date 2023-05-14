@@ -25,13 +25,13 @@ invoke start
 
 Peli käynnistyy main menuun:
 
-![](./kuvat/kayttoohje-pelin aloitus.png)
+![](https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/kayttoohje-pelin%20aloitus.PNG)
 
 Voit vapaasti valita haluamasi pelitilan, mikäli et jaksa pelata peliä enää, klikkaa vain "Exit".
 ## Long Jump
 Sanotaan, että jos halusit pelata long jumpia, klikkaamalla ”Long Jump” avautuu uusi ikkuna, ja nyt olet long jump -valikossa. Klikkaamalla "Play" saat pelin alustettua. 
 
-![](./kuvat/kayttoohje-longjump.png)
+![](https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/kayttoohje-longjump.PNG)
 
 #### Long Jump – Pelisäännöt
 * Ennen varsinaista hyppyä pelaajalla on 5 sekuntia aikaa painaa ← ja → mahdollisimman paljon. Onnistuneen ← ja → painatus muodostaa yhden setin, jonka perusteella peli laskee suorituksesi hypyn jälkeen.
@@ -42,7 +42,7 @@ Sanotaan, että jos halusit pelata long jumpia, klikkaamalla ”Long Jump” ava
 ## Pong
 Sanotaan, että jos halusit pelata pong:a, klikkaamalla ”Pong” avautuu uusi ikkuna, ja nyt olet Pong -valikossa. Klikkaamalla "Practice" tai ”PvP” saat pelin alustettua. 
 
-![](./kuvat/kayttoohje-pong.png)
+![](https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/kayttoohje-pong.PNG)
 
 #### Pong– Pelisäännöt
 Pracetice-mode:
