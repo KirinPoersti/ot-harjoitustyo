@@ -36,7 +36,8 @@ Vaikka [test_longjump]( https://github.com/KirinPoersti/ot-harjoitustyo/blob/mai
 `long jump`:n metodeista on testattu vain osaa, sillä suuri osa metodeista ovat melko riippuvaisia olemassa olevista pinnasta ja syötteistä. Tämän vuoksi metodit testatiin niin paljon kuin pystyttiin [test_longjump]( https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/Sports-Rally/src/tests/test_longjump.py)-testiluokalla.
 
 ### Asennus ja konfigurointi
-Sovellus on haettu ja sitä on testattu [käyttöohjeen](./kayttoohje.md) kuvaamalla tavalla sekä Windows- että Linux-ympäristöön.
+Peli on tehty ja sitä on testattu [käyttöohjeen](./kayttoohje.md) kuvaamalla tavalla sekä Windows- että Linux-ympäristöön.
+
 ### Toiminnallisuudet
 Kaikki [määrittelydokumentin](https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/dokumentaatio/vaatimusmaarittely.md) ja käyttöohjeen listaamat toiminnallisuudet on käyty läpi. 
 ## Sovellukseen jääneet laatuongelmat
