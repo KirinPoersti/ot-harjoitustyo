@@ -45,8 +45,10 @@ Kaikki [määrittelydokumentin](https://github.com/KirinPoersti/ot-harjoitustyo/
 - Useammassa koodissa on käytetty kopioitut/samat määrittely tiedot
 - Pygame:n oliot (esim. pygame.quit()) on kirjoitettu "väärällä" tavalla (Module 'pygame' has no 'quit' memberPylint(E1101:no-member))
 - Jotkut rivit voi olla sellaisia, että se toimii kyllä koodin tasolla, butta se ei koodauksen tasolla ole siisti
-
-" if button_exit.clicked(click, lambda: pygame.quit() or sys.exit()):
+```
+ if button_exit.clicked(click, lambda: pygame.quit() or sys.exit()):
             pass
 
-   pygame.display.flip() # Unreachable codePylint(W0101:unreachable"
+   pygame.display.flip() # Unreachable codePylint(W0101:unreachable
+```
+
