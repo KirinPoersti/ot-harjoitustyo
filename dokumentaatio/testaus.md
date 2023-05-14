@@ -44,7 +44,7 @@ Kaikki [määrittelydokumentin](https://github.com/KirinPoersti/ot-harjoitustyo/
 - Pituushypyn tulostaulukkoa pääsee tarkastamaan ainoastaan sen jälkeen, kun se on saanut 10 parasta pistemäärää pelaajilta tallenettua.
 - Useammassa koodissa on käytetty kopioitut/samat määrittely tiedot
 - Pygame:n oliot (esim. pygame.quit()) on kirjoitettu "väärällä" tavalla (Module 'pygame' has no 'quit' memberPylint(E1101:no-member))
-- Jotkut rivit voi olla sellaisia, että se toimii kyllä koodin tasolla, butta se ei koodauksen tasolla ole siisti
+- Jotkut rivit voi olla sellaisia, että ne toimiivat kyllä, butta ne eivät pylintin silmissä ole siistejä, esim:
 ```
  if button_exit.clicked(click, lambda: pygame.quit() or sys.exit()):
             pass
