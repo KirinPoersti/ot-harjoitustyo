@@ -16,6 +16,7 @@ Sovelluksen toiminta on testattu Python-versiolla 3.10 ja pygame 2.3.0. Etenkin 
 - [Testausdokumentti](dokumentaatio/testaus.md)
 - [Changelog](dokumentaatio/changelog.md)
 - [Tuntikirjanpito](dokumentaatio/tuntikirjanpito.md)
+- [Loppupalautus](https://github.com/KirinPoersti/ot-harjoitustyo/releases/tag/Loppupalautus)
 
 # Pelin suorittaminen 
 Ennen pelin suorittamista pitää suorittaa Sports-Rally kansion alla:
