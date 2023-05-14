@@ -27,6 +27,16 @@ clock = pygame.time.Clock()
 
 
 def draw_text(text, size, object_x, object_y, color):
+    """
+    Draw a text on the screen with specified parameters.
+
+    Args:
+        text (str): The text to be drawn.
+        size (int): The font size.
+        object_x (int): The x-coordinate of the center of the text.
+        object_y (int): The y-coordinate of the center of the text.
+        color (tuple): The color of the text (in RGB).
+    """
     font = pygame.font.Font(pygame.font.get_default_font(), size)
     text_surface = font.render(text, True, color)
     text_rect = text_surface.get_rect()
@@ -35,6 +45,9 @@ def draw_text(text, size, object_x, object_y, color):
 
 
 def draw_region_lines():
+    """
+    Draw the region lines on the screen to indicate the distances.
+    """
     region_line_x_values = [125, 260, 395, 530, 665]
     region_line_meters = [1, 2.5, 5, 7.5, 10]
     for i, x in enumerate(region_line_x_values):
@@ -46,6 +59,13 @@ def draw_region_lines():
 
 
 def get_player_name():
+    """
+    Gets the player's name input. The function continues to run until the user
+    presses enter.
+
+    Returns:
+        str: The inputted player's name.
+    """
     input_text = ""
     while True:
         for event in pygame.event.get():
@@ -79,6 +99,15 @@ def get_player_name():
 
 
 def calculate_landing_point(score):
+    """
+    Calculate the x-coordinate of the landing point based on the score.
+
+    Args:
+        score (float): The score of the jump.
+
+    Returns:
+        float: The x-coordinate of the landing point.
+    """
     if score <= 1:
         landing_point = (score - 0) / (1 - 0)
     elif score <= 2.5:
@@ -93,12 +122,28 @@ def calculate_landing_point(score):
 
 
 def save_score(name, score):
+    """
+    Save the player's name and score into a CSV file.
+
+    Args:
+        name (str): The player's name.
+        score (float): The score of the player.
+    """
     with open(LEADERBOARD_FILE, "a", newline="", encoding="utf-8") as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow([name, f"{score:.2f}"])
 
 
 def load_scores(file_path):
+    """
+    Load the leaderboard from a CSV file.
+
+    Args:
+        file_path (str): The file path of the leaderboard CSV file.
+
+    Returns:
+        list: A list of tuples, each containing a player's name and score.
+    """
     scores = []
     with open(file_path, "r", encoding="utf-8") as csvfile:
         reader = csv.reader(csvfile)
@@ -109,6 +154,13 @@ def load_scores(file_path):
 
 
 def player_jump(player_rect, landing_point):
+    """
+    Simulate the player's jump and draw it on the screen.
+
+    Args:
+        player_rect (pygame.Rect): The rect object representing the player.
+        landing_point (float): The x-coordinate of the landing point.
+    """
     jump_speed = 200 / FPS
     jump_height = 50
 
@@ -138,6 +190,26 @@ def player_jump(player_rect, landing_point):
 
 
 def game_loop():
+    """
+    The main game loop. It handles the game states, user inputs and game logic to control the game flow.
+
+    Args:
+        None
+
+    Returns:
+        None
+
+    Raises:
+        SystemExit: Exits the game when the game loop ends.
+
+    The game loop functions as follows:
+    - Initializes the game entities and variables.
+    - Enters the main game loop, which continues until a system exit event.
+    - Depending on the current game state, the function processes user inputs, updates game entities,
+      and changes game states.
+    - The game states include countdown, speed_building, jump, settlement, failed, and end_game.
+    - The loop also ensures that the game runs at the intended frame rate.
+    """
     sound_manager = SoundManager()
     sound_manager.play_longjump_bgm_sound()
     player_rect = pygame.Rect(PLAYER_START_POS, GROUND_Y - 50, 25, 50)

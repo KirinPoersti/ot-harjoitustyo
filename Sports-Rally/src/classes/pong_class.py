@@ -9,13 +9,29 @@ FPS = 60
 
 
 class Paddle:
+    """
+    This class represents a paddle in the game.
+
+    Attributes:
+        rect: A pygame rectangle representing the paddle.
+        speed_normal: The normal speed of the paddle.
+        speed_boosted: The boosted speed of the paddle.
+        screen_height: The height of the screen.
+    """
+
     def __init__(self, paddle_x, paddle_y, width, height, screen_height):
+        """Initialize the Paddle class with position, size and screen height."""
         self.rect = pygame.Rect(paddle_x, paddle_y, width, height)
         self.speed_normal = 5
         self.speed_boosted = 15
         self.screen_height = screen_height
 
     def move_paddle(self, keys, boost_active, is_opponent=False):
+        """
+        Moves the paddle based on the keys pressed.
+        If 'w' or 'UP' is pressed, the paddle moves up.
+        If 's' or 'DOWN' is pressed, the paddle moves down.
+        """
         speed = (
             self.speed_boosted
             if (keys[pygame.K_LSHIFT] and not is_opponent)
@@ -43,14 +59,28 @@ class Paddle:
         return self.rect.y
 
     def draw(self, screen):
+        """Draws the paddle on the screen."""
         pygame.draw.rect(screen, FONT_COLOR, self.rect)
         return "Object drawn"
 
 
 class Ball:
+    """
+    This class represents a ball in the game.
+
+    Attributes:
+        width: Width of the screen.
+        height: Height of the screen.
+        ball_radius: Radius of the ball.
+        speed: Speed of the ball.
+        sound_manager: Manager for the game's sound effects.
+        practice_mode: Boolean indicating whether the game is in practice mode.
+    """
+
     def __init__(
         self, width, height, ball_radius, speed, sound_manager, practice_mode=False
     ):
+        """Initialize the Ball class with its attributes."""
         self.width = width
         self.height = height
         self.ball_radius = ball_radius
@@ -70,6 +100,7 @@ class Ball:
             self.ball_dx, self.ball_dy = speed, speed
 
     def reset_ball_practice(self):
+        """Resets the ball's position and direction in practice mode."""
         self.ball.x = self.width // 2 - self.ball_radius // 2
         self.ball.y = self.height // 2 - self.ball_radius // 2
         angle = random.uniform(math.radians(315), math.radians(405))
@@ -78,16 +109,17 @@ class Ball:
         return "Ball reset"
 
     def reset_ball_pvp(self, granter=None):
+        """Resets the ball's position and direction in player versus player mode."""
         self.ball.x = self.width // 2 - self.ball_radius // 2
         self.ball.y = self.height // 2 - self.ball_radius // 2
-        self.ball_dx = - \
-            abs(self.speed) if granter == "player" else abs(self.speed)
+        self.ball_dx = -abs(self.speed) if granter == "player" else abs(self.speed)
         self.ball_dy = self.speed
         return "Ball reset"
 
     def move_ball_practice(
         self, player_paddle, player_score, opponent_score, opponent_paddle=None
     ):
+        """Moves the ball in practice mode and updates the scores based on collisions."""
         self.ball.x += self.ball_dx
         self.ball.y += self.ball_dy
 
@@ -124,6 +156,7 @@ class Ball:
         return player_score, opponent_score
 
     def move_ball(self, player_paddle, opponent_paddle, player_score, opponent_score):
+        """Moves the ball in player versus player mode and updates the scores based on collisions."""
         self.ball.x += self.ball_dx
         self.ball.y += self.ball_dy
 
@@ -150,6 +183,18 @@ class Ball:
 
 
 class StaminaSystem:
+    """
+    This class represents a StaminaSystem in the game.
+
+    Attributes:
+        width: Width of the screen.
+        height: Height of the screen.
+        stamina_recharge_time: Time for the stamina to recharge.
+        stamina_consume_time: Time for the stamina to be consumed.
+        max_stamina_blocks: Maximum number of stamina blocks.
+        display_mode: Mode of display for the stamina.
+    """
+
     def __init__(
         self,
         width,
@@ -159,6 +204,7 @@ class StaminaSystem:
         max_stamina_blocks,
         display_mode="both",
     ):
+        """Initialize the StaminaSystem class with its attributes."""
         self.width = width
         self.height = height
         self.stamina_recharge_time = stamina_recharge_time
@@ -192,6 +238,10 @@ class StaminaSystem:
         prev_key_state,
         is_opponent,
     ):
+        """
+        Handles the stamina system based on the keys pressed and
+        the current state of the stamina blocks and timers.
+        """
         boost_active = False
 
         if keys[boost_key] and stamina_blocks > 0 and not is_opponent:
@@ -212,6 +262,7 @@ class StaminaSystem:
         )
 
     def draw_stamina(self, screen):
+        """Draws the stamina blocks on the screen."""
         block_width, block_height = 20, 10
         block_gap = 2
         if self.display_mode in ["left", "both"]:
@@ -234,6 +285,7 @@ class StaminaSystem:
                 )
 
     def update_stamina(self, event, keys):
+        """Updates the stamina blocks and timers based on events and keys pressed."""
         if event.type == pygame.USEREVENT + 1:
             if self.stamina_blocks < self.max_stamina_blocks and not self.boost_active:
                 self.stamina_blocks += 1
@@ -246,8 +298,7 @@ class StaminaSystem:
             if self.boost_active:
                 self.stamina_blocks = max(0, self.stamina_blocks - 1)
             if self.right_boost_active:
-                self.right_stamina_blocks = max(
-                    0, self.right_stamina_blocks - 1)
+                self.right_stamina_blocks = max(0, self.right_stamina_blocks - 1)
 
             (
                 self.boost_active,
@@ -282,6 +333,19 @@ class StaminaSystem:
 
 
 class GameObjects:
+    """Main class that controls all the game objects including the paddles, ball, and stamina system.
+
+    Attributes:
+        width (int): Width of the game screen.
+        height (int): Height of the game screen.
+        player_paddle (Paddle): Paddle object for the player.
+        ball (Ball): Ball object for the game.
+        stamina_system (StaminaSystem): Stamina system object for the game.
+        opponent_paddle (Paddle): Paddle object for the opponent.
+        practice_mode (bool): Flag to indicate whether the game is in practice mode or not.
+        font (pygame.font.Font): Font object for rendering text in the game.
+    """
+
     def __init__(
         self,
         width,
@@ -303,32 +367,42 @@ class GameObjects:
         self.font = pygame.font.Font(None, 50)
 
     def draw_practice(self, screen, player_score, stamina_system):
+        """Draws all game objects during practice mode.
+
+        Args:
+            screen (pygame.Surface): Pygame screen surface.
+            player_score (int): Current score of the player.
+            stamina_system (StaminaSystem): Stamina system object for the game.
+        """
         screen.fill((0, 0, 0))
         self.player_paddle.draw(screen)
         if self.opponent_paddle is not None:
             self.opponent_paddle.draw(screen)
         pygame.draw.ellipse(screen, FONT_COLOR, self.ball.ball)
         for y in range(0, SCREEN_HEIGHT, 40):
-            pygame.draw.rect(screen, FONT_COLOR,
-                             (SCREEN_WIDTH // 2 - 2, y + 40, 4, 20))
-        score_text = self.font.render(
-            f"Score: {player_score}", True, FONT_COLOR)
-        screen.blit(score_text, (self.width // 2 -
-                    score_text.get_width() // 2, 10))
+            pygame.draw.rect(screen, FONT_COLOR, (SCREEN_WIDTH // 2 - 2, y + 40, 4, 20))
+        score_text = self.font.render(f"Score: {player_score}", True, FONT_COLOR)
+        screen.blit(score_text, (self.width // 2 - score_text.get_width() // 2, 10))
 
         stamina_system.draw_stamina(screen)
 
     def draw(self, screen, player_score, opponent_score, stamina_system):
+        """Draws all game objects during normal game mode.
+
+        Args:
+            screen (pygame.Surface): Pygame screen surface.
+            player_score (int): Current score of the player.
+            opponent_score (int): Current score of the opponent.
+            stamina_system (StaminaSystem): Stamina system object for the game.
+        """
         screen.fill((0, 0, 0))
         self.player_paddle.draw(screen)
         self.opponent_paddle.draw(screen)
         pygame.draw.ellipse(screen, FONT_COLOR, self.ball.ball)
         for y in range(0, SCREEN_HEIGHT, 40):
-            pygame.draw.rect(screen, FONT_COLOR,
-                             (SCREEN_WIDTH // 2 - 2, y + 40, 4, 20))
+            pygame.draw.rect(screen, FONT_COLOR, (SCREEN_WIDTH // 2 - 2, y + 40, 4, 20))
         score_text = self.font.render(
             f"{player_score} - {opponent_score}", True, FONT_COLOR
         )
-        screen.blit(score_text, (self.width // 2 -
-                    score_text.get_width() // 2, 10))
+        screen.blit(score_text, (self.width // 2 - score_text.get_width() // 2, 10))
         stamina_system.draw_stamina(screen)

@@ -1,6 +1,11 @@
-- Sovelluksen tarkoitus: Tarkoituksena olisi toteuttaa urheilutapahtumaa kuvaava peli, jossa on kolme mini game:iä:
-    * Pong tehty√
-    * Pituushyppy√
-    * "Kaksi-miestä-kolme-jalkaa" (Laji, jossa kaksi pelajaa yrittävät juosta yhksi heidän jaloista kiinnitettynä mahdollisimman nopeasti) (poistettu suunnitelmasta)
-- Ajatuksena olisi toteuttaa nämä yllämainitut pelit yksittelleen, mikäli joku niistä peleistä jää kesken, sitä otetaan pois joukosta. Tärkein peli näistä olisi Pong, ja kaikki mitä on mahdollista saada aikaan on bonuksia projektille.
+# Vaatimusmäärittely
+## Pelin tarkoitus
+Pelin tarkoituksena olisi toteuttaa urheilutapahtumaa kuvaava peli, jossa on kolme minipeliä:
+* Pituushyppy
+* Pong
+## Pelaajat
+Pituushyppy-peli tehtiin pelattavaksi vain yksinpelinä ja pong suunniteltiin siten, että on kaksi pelitilaa, joista toinen on harjoitustila, joka mahdollistaa pallojen kiinniottamisen harjoittelun yksin pelatessa, sekä PvP-tila (kahden pelaajan tila), joka mahdollistaa usean pelaajan pelaamisen.
+## Jatkokehitysideoita
+* Lisää lajeja peliin, mukaan lukien "Kaksi-miestä-kolme-jalkaa" (Laji, jossa kaksi pelaajaa yrittää juosta yksi heidän jaloista kiinnitettynä mahdollisimman nopeasti) (poistettu suunnitelmasta)
+
 

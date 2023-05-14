@@ -21,6 +21,11 @@ background_image = pygame.image.load("src/resources/background.jpg")
 
 
 def main_menu():
+    """
+    This function initializes the main menu of the game.
+    It creates the buttons for different game modes and handles the click events to
+    start the selected game mode or to exit the game.
+    """
     sound_manager = SoundManager()
     sound_manager.play_menu_bgm_sound()
     button_long_jump = Button(300, 250, 200, 50, sound_manager)

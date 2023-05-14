@@ -1,4 +1,3 @@
-import sys
 import pygame
 from .longjump import load_scores
 
@@ -12,6 +11,17 @@ FPS = 60
 
 
 def main():
+    """
+    The main function to start the leaderboard display loop.
+
+    Raises:
+        SystemExit: Exits the leaderboard display when the loop ends.
+
+    This function initializes the display, sets the caption,
+    and enters a loop that continues until a quit or escape event.
+    Within the loop, the function calls display_leaderboard() to update the display,
+    and then flips the display to make the updates visible.
+    """
     size = (SCREEN_WIDTH, SCREEN_HEIGHT)
     screen = pygame.display.set_mode(size)
 
@@ -20,6 +30,13 @@ def main():
     leaderboard_file = "src/resources/leaderboard.csv"
 
     def display_leaderboard():
+        """
+        Displays the leaderboard on the screen.
+
+        This function loads the scores from the leaderboard file,
+        sorts them in descending order, and then displays the top 10 scores
+        on the screen. The score display includes the player's rank, name, and score.
+        """
         scores = load_scores(leaderboard_file)
         scores.sort(key=lambda x: x[1], reverse=True)
 
@@ -29,8 +46,7 @@ def main():
         text_color = FONT_COLOR
 
         for i, (player_name, score) in enumerate(scores[:10]):
-            text = font.render(
-                f"{i + 1}. {player_name}: {score}m", True, text_color)
+            text = font.render(f"{i + 1}. {player_name}: {score}m", True, text_color)
             screen.blit(text, (325, 85 + i * 40))
 
     done = False
