@@ -49,6 +49,6 @@ Kaikki [määrittelydokumentin](https://github.com/KirinPoersti/ot-harjoitustyo/
  if button_exit.clicked(click, lambda: pygame.quit() or sys.exit()):
             pass
 
-   pygame.display.flip() # Unreachable codePylint(W0101:unreachable
+   pygame.display.flip() 
 ```
-
+(Unreachable codePylint(W0101:unreachable))
