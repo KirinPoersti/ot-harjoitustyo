@@ -1,6 +1,5 @@
 import sys
 import threading
-import time
 import pygame
 from .classes.menu_class import SoundManager, Button, draw_text_with_shadow, start_game
 

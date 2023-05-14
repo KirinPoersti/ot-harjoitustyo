@@ -17,8 +17,10 @@ clock = pygame.time.Clock()
 
 sound_manager = SoundManager()
 
-player_paddle = Paddle(100, SCREEN_HEIGHT // 2 - 100 // 2, 20, 100, SCREEN_HEIGHT)
-ball = Ball(SCREEN_WIDTH, SCREEN_HEIGHT, 15, 5, sound_manager, practice_mode=True)
+player_paddle = Paddle(100, SCREEN_HEIGHT // 2 - 100 //
+                       2, 20, 100, SCREEN_HEIGHT)
+ball = Ball(SCREEN_WIDTH, SCREEN_HEIGHT, 15, 5,
+            sound_manager, practice_mode=True)
 
 PLAYER_SCORE = 0
 

@@ -74,7 +74,8 @@ class TestFunctions(unittest.TestCase):
 
     @patch("pygame.display.set_mode")
     def draw_text_with_shadow(
-        self, screen, text, size, object_x, object_y, color, shadow_color, offset=(2, 2)
+        self, screen, text, size, object_x, object_y, color, shadow_color, offset=(
+            2, 2)
     ):
         font = pygame.font.Font(pygame.font.get_default_font(), size)
         text_surface = font.render(text, True, color)

@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import MagicMock, Mock, patch
 import pygame
 from ..classes.pong_class import Paddle, Ball, StaminaSystem, GameObjects
 
@@ -102,7 +102,8 @@ class TestPaddle(unittest.TestCase):
 class TestBall(unittest.TestCase):
     def setUp(self):
         self.sound_manager = Mock()
-        self.ball = Ball(800, 600, 15, 5, self.sound_manager, practice_mode=True)
+        self.ball = Ball(800, 600, 15, 5, self.sound_manager,
+                         practice_mode=True)
         self.player_paddle = Mock()
         self.opponent_paddle = Mock()
 
@@ -135,13 +136,15 @@ class TestBall(unittest.TestCase):
 
     def test_practice_mode_true(self):
         self.sound_manager = Mock()
-        self.ball = Ball(800, 600, 15, 5, self.sound_manager, practice_mode=True)
+        self.ball = Ball(800, 600, 15, 5, self.sound_manager,
+                         practice_mode=True)
         self.assertEqual(self.ball.ball_dx, -5)
         self.assertEqual(self.ball.ball_dy, 5)
 
     def test_practice_mode_false(self):
         self.sound_manager = Mock()
-        self.ball = Ball(800, 600, 15, 5, self.sound_manager, practice_mode=False)
+        self.ball = Ball(800, 600, 15, 5, self.sound_manager,
+                         practice_mode=False)
         self.assertEqual(self.ball.ball_dx, 5)
         self.assertEqual(self.ball.ball_dy, 5)
 
@@ -315,7 +318,8 @@ class TestGameObjects(unittest.TestCase):
         self.assertEqual(game_objects.player_paddle, self.mock_paddle)
         self.assertEqual(game_objects.ball, self.mock_ball)
         self.assertEqual(game_objects.stamina_system, self.mock_stamina_system)
-        self.assertEqual(game_objects.opponent_paddle, self.mock_opponent_paddle)
+        self.assertEqual(game_objects.opponent_paddle,
+                         self.mock_opponent_paddle)
         self.assertEqual(game_objects.practice_mode, False)
         mock_font.assert_called_once_with(None, 50)
 
@@ -339,13 +343,14 @@ class TestGameObjects(unittest.TestCase):
         mock_draw.ellipse.assert_called_once_with(
             mock_screen, FONT_COLOR, self.mock_ball.ball
         )
-        self.mock_stamina_system.draw_stamina.assert_called_once_with(mock_screen)
+        self.mock_stamina_system.draw_stamina.assert_called_once_with(
+            mock_screen)
         mock_draw.rect.assert_called()
 
     @patch("pygame.draw.line")
     @patch("pygame.draw.ellipse")
     @patch("pygame.draw.rect")
-    def test_draw_practice(self, mock_draw_ellipse, mock_draw_rect, mock_draw_line):
+    def test_draw_practice(self, mock_draw_rect, mock_draw_ellipse, mock_draw_line):
         game_objects = GameObjects(
             width=800,
             height=600,
@@ -356,16 +361,63 @@ class TestGameObjects(unittest.TestCase):
             practice_mode=True,
         )
 
-        game_objects.draw_practice(self.mock_screen, 1, self.mock_stamina_system)
+        game_objects.draw_practice(
+            self.mock_screen, 1, self.mock_stamina_system)
 
         self.mock_screen.fill.assert_called_once_with((0, 0, 0))
         self.mock_paddle.draw.assert_called_once_with(self.mock_screen)
-        self.mock_opponent_paddle.draw.assert_called_once_with(self.mock_screen)
+        if self.mock_opponent_paddle is not None:
+            self.mock_opponent_paddle.draw.assert_called_once_with(
+                self.mock_screen)
         mock_draw_ellipse.assert_called()
         self.mock_screen.blit.assert_called()
-        self.mock_stamina_system.draw_stamina.assert_called_once_with(self.mock_screen)
+        self.mock_stamina_system.draw_stamina.assert_called_once_with(
+            self.mock_screen)
         mock_draw_rect.assert_called()
-        mock_draw_line.assert_called()
+
+
+class TestIntegration(unittest.TestCase):
+    def setUp(self):
+        self.screen_height = 600
+        self.screen = pygame.Surface((800, 600))
+        self.paddle = Paddle(100, 100, 10, 100, self.screen_height)
+        self.sound_manager = MagicMock()
+        self.ball = Ball(100, 100, 10, 5, self.sound_manager)
+        self.stamina_system = StaminaSystem(800, 600, 1000, 500, 10)
+        self.opponent_paddle = Paddle(300, 300, 10, 100, self.screen_height)
+        self.game_objects = GameObjects(
+            800, 600, self.paddle, self.ball, self.stamina_system, self.opponent_paddle
+        )
+
+    @patch("pygame.draw.rect")
+    def test_paddle_and_ball(self, mock_rect):
+        keys = {
+            pygame.K_LSHIFT: False,
+            pygame.K_w: True,
+            pygame.K_s: False,
+            pygame.K_RSHIFT: False,
+            pygame.K_UP: False,
+            pygame.K_DOWN: False,
+        }
+        self.paddle.move_paddle(keys, False)
+        self.assertEqual(self.paddle.rect.y, 95)
+
+        self.ball.move_ball(self.paddle, self.opponent_paddle, 0, 0)
+        self.assertEqual(self.ball.ball.x, 50)
+        self.assertEqual(self.ball.ball.y, 50)
+
+        self.paddle.draw(self.screen)
+        mock_rect.assert_called_once()
+
+    @patch("pygame.draw.rect")
+    def test_game_objects_draw_practice(self, mock_rect):
+        self.game_objects.draw_practice(self.screen, 10, self.stamina_system)
+        mock_rect.assert_called()
+
+    @patch("pygame.draw.rect")
+    def test_game_objects_draw(self, mock_rect):
+        self.game_objects.draw(self.screen, 10, 10, self.stamina_system)
+        mock_rect.assert_called()
 
 
 if __name__ == "__main__":

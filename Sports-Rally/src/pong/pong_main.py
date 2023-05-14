@@ -35,18 +35,22 @@ def main_menu():
                     click = True
         screen.blit(background_image, (0, 0))
 
-        draw_text_with_shadow("Pong", 48, 400, 150, FONT_COLOR, (100, 100, 100))
+        draw_text_with_shadow("Pong", 48, 400, 150,
+                              FONT_COLOR, (100, 100, 100))
 
-        button_practice.draw(screen, "Practice", 24, FONT_COLOR, (100, 100, 100))
+        button_practice.draw(screen, "Practice", 24,
+                             FONT_COLOR, (100, 100, 100))
         button_pvp.draw(screen, "PvP", 24, FONT_COLOR, (100, 100, 100))
         button_exit.draw(screen, "Exit", 24, FONT_COLOR, (100, 100, 100))
 
         button_practice.clicked(
             click,
-            lambda: subprocess.Popen(["python", "-m", "src.pong.pong_practice"]),
+            lambda: subprocess.Popen(
+                ["python", "-m", "src.pong.pong_practice"]),
         )
         button_pvp.clicked(
-            click, lambda: subprocess.Popen(["python", "-m", "src.pong.pong_pvp"])
+            click, lambda: subprocess.Popen(
+                ["python", "-m", "src.pong.pong_pvp"])
         )
         button_exit.clicked(click, lambda: pygame.quit() or sys.exit())
 

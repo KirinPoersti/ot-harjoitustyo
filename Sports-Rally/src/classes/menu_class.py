@@ -17,9 +17,12 @@ class SoundManager:
         pygame.mixer.init()
         self.paddle_sound = pygame.mixer.Sound("src/resources/pong_paddle.mp3")
         self.wall_sound = pygame.mixer.Sound("src/resources/pong_wall.mp3")
-        self.pong_score_sound = pygame.mixer.Sound("src/resources/pong_score.mp3")
-        self.boosted_sound = pygame.mixer.Sound("src/resources/pong_boosted.mp3")
-        self.pong_bgm_sound = pygame.mixer.music.load("src/resources/pong_bgm.mp3")
+        self.pong_score_sound = pygame.mixer.Sound(
+            "src/resources/pong_score.mp3")
+        self.boosted_sound = pygame.mixer.Sound(
+            "src/resources/pong_boosted.mp3")
+        self.pong_bgm_sound = pygame.mixer.music.load(
+            "src/resources/pong_bgm.mp3")
 
         self.button_sound = pygame.mixer.Sound("src/resources/button.mp3")
 
@@ -48,7 +51,8 @@ class SoundManager:
         return "Sound played"
 
     def play_pong_bgm_sound(self):
-        self.pong_bgm_sound = pygame.mixer.music.load("src/resources/pong_bgm.mp3")
+        self.pong_bgm_sound = pygame.mixer.music.load(
+            "src/resources/pong_bgm.mp3")
         pygame.mixer.music.set_volume(0.25)
         pygame.mixer.music.play(-1)
         return "Bgm played"
@@ -74,7 +78,8 @@ class SoundManager:
         return "Bgm played"
 
     def play_menu_bgm_sound(self):
-        self.longjump_bgm_sound = pygame.mixer.music.load("src/resources/bgm.mp3")
+        self.longjump_bgm_sound = pygame.mixer.music.load(
+            "src/resources/bgm.mp3")
         pygame.mixer.music.set_volume(0.25)
         pygame.mixer.music.play(-1)
         return "Bgm played"
@@ -123,7 +128,8 @@ class Button:
         return self.rect.collidepoint(point)
 
     def draw(
-        self, screen, text, text_size, text_color, shadow_color, bg_color=(255, 174, 67)
+        self, screen, text, text_size, text_color, shadow_color, bg_color=(
+            255, 174, 67)
     ):
         pygame.draw.rect(screen, bg_color, self.rect)
         draw_text_with_shadow(

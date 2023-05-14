@@ -98,31 +98,6 @@ def save_score(name, score):
         writer.writerow([name, f"{score:.2f}"])
 
 
-def display_leaderboard():
-    scores = load_scores(LEADERBOARD_FILE)
-    scores.sort(key=lambda x: x[1], reverse=True)
-
-    screen.fill((0, 0, 0))
-
-    font = pygame.font.Font(None, 36)
-    text_color = (255, 255, 255)
-
-    for i, (player_name, score) in enumerate(scores):
-        text = font.render(f"{i + 1}. {player_name}: {score}", True, text_color)
-        screen.blit(text, (50, 50 + i * 40))
-
-    done = False
-    while not done:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                done = True
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    done = True
-
-        pygame.display.flip()
-
-
 def load_scores(file_path):
     scores = []
     with open(file_path, "r", encoding="utf-8") as csvfile:
@@ -131,10 +106,6 @@ def load_scores(file_path):
             scores.append((row[0], round(float(row[1]), 2)))
     scores.sort(key=lambda x: x[1], reverse=True)
     return scores
-
-
-def quadratic_bezier(t_0, p_0, p_1, p_2):
-    return (1 - t_0) ** 2 * p_0 + 2 * (1 - t_0) * t_0 * p_1 + t_0**2 * p_2
 
 
 def player_jump(player_rect, landing_point):

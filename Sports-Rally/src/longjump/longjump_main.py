@@ -34,15 +34,18 @@ def main_menu():
                     click = True
         screen.blit(background_image, (0, 0))
 
-        draw_text_with_shadow("Long Jump", 48, 400, 150, FONT_COLOR, (100, 100, 100))
+        draw_text_with_shadow("Long Jump", 48, 400, 150,
+                              FONT_COLOR, (100, 100, 100))
 
         button_play.draw(screen, "Play", 24, FONT_COLOR, (100, 100, 100))
-        button_leaderboard.draw(screen, "Leaderboard", 24, FONT_COLOR, (100, 100, 100))
+        button_leaderboard.draw(screen, "Leaderboard",
+                                24, FONT_COLOR, (100, 100, 100))
         button_exit.draw(screen, "Exit", 24, FONT_COLOR, (100, 100, 100))
 
         button_play.clicked(
             click,
-            lambda: subprocess.Popen(["python", "-m", "src.longjump.longjump"]),
+            lambda: subprocess.Popen(
+                ["python", "-m", "src.longjump.longjump"]),
         )
         button_leaderboard.clicked(
             click,

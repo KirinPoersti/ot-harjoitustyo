@@ -80,7 +80,8 @@ class Ball:
     def reset_ball_pvp(self, granter=None):
         self.ball.x = self.width // 2 - self.ball_radius // 2
         self.ball.y = self.height // 2 - self.ball_radius // 2
-        self.ball_dx = -abs(self.speed) if granter == "player" else abs(self.speed)
+        self.ball_dx = - \
+            abs(self.speed) if granter == "player" else abs(self.speed)
         self.ball_dy = self.speed
         return "Ball reset"
 
@@ -245,7 +246,8 @@ class StaminaSystem:
             if self.boost_active:
                 self.stamina_blocks = max(0, self.stamina_blocks - 1)
             if self.right_boost_active:
-                self.right_stamina_blocks = max(0, self.right_stamina_blocks - 1)
+                self.right_stamina_blocks = max(
+                    0, self.right_stamina_blocks - 1)
 
             (
                 self.boost_active,
@@ -307,12 +309,12 @@ class GameObjects:
             self.opponent_paddle.draw(screen)
         pygame.draw.ellipse(screen, FONT_COLOR, self.ball.ball)
         for y in range(0, SCREEN_HEIGHT, 40):
-            pygame.draw.rect(screen, FONT_COLOR, (SCREEN_WIDTH // 2 - 2, y + 40, 4, 20))
-        pygame.draw.line(
-            screen, FONT_COLOR, (0, 0), (SCREEN_WIDTH, SCREEN_HEIGHT)
-        )  # added this line
-        score_text = self.font.render(f"Score: {player_score}", True, FONT_COLOR)
-        screen.blit(score_text, (self.width // 2 - score_text.get_width() // 2, 10))
+            pygame.draw.rect(screen, FONT_COLOR,
+                             (SCREEN_WIDTH // 2 - 2, y + 40, 4, 20))
+        score_text = self.font.render(
+            f"Score: {player_score}", True, FONT_COLOR)
+        screen.blit(score_text, (self.width // 2 -
+                    score_text.get_width() // 2, 10))
 
         stamina_system.draw_stamina(screen)
 
@@ -322,16 +324,11 @@ class GameObjects:
         self.opponent_paddle.draw(screen)
         pygame.draw.ellipse(screen, FONT_COLOR, self.ball.ball)
         for y in range(0, SCREEN_HEIGHT, 40):
-            pygame.draw.rect(screen, FONT_COLOR, (SCREEN_WIDTH // 2 - 2, y + 40, 4, 20))
-        player_score_text = self.font.render(
-            f"Player Score: {player_score}", True, FONT_COLOR
+            pygame.draw.rect(screen, FONT_COLOR,
+                             (SCREEN_WIDTH // 2 - 2, y + 40, 4, 20))
+        score_text = self.font.render(
+            f"{player_score} - {opponent_score}", True, FONT_COLOR
         )
-        opponent_score_text = self.font.render(
-            f"Opponent Score: {opponent_score}", True, FONT_COLOR
-        )
-        screen.blit(player_score_text, (10, 10))
-        screen.blit(
-            opponent_score_text, (self.width - opponent_score_text.get_width() - 10, 10)
-        )
-
+        screen.blit(score_text, (self.width // 2 -
+                    score_text.get_width() // 2, 10))
         stamina_system.draw_stamina(screen)

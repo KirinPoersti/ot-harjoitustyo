@@ -19,7 +19,8 @@ FPS = 60
 sound_manager = SoundManager()
 sound_manager.play_pong_bgm_sound()
 
-player_paddle = Paddle(100, SCREEN_HEIGHT // 2 - 100 // 2, 20, 100, SCREEN_HEIGHT)
+player_paddle = Paddle(100, SCREEN_HEIGHT // 2 - 100 //
+                       2, 20, 100, SCREEN_HEIGHT)
 opponent_paddle = Paddle(
     SCREEN_WIDTH - 130, SCREEN_HEIGHT // 2 - 100 // 2, 20, 100, SCREEN_HEIGHT
 )

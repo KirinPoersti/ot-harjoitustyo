@@ -29,7 +29,8 @@ def main():
         text_color = FONT_COLOR
 
         for i, (player_name, score) in enumerate(scores[:10]):
-            text = font.render(f"{i + 1}. {player_name}: {score}m", True, text_color)
+            text = font.render(
+                f"{i + 1}. {player_name}: {score}m", True, text_color)
             screen.blit(text, (325, 85 + i * 40))
 
     done = False

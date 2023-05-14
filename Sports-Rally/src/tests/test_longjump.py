@@ -1,25 +1,37 @@
 import unittest
 from unittest.mock import patch, mock_open
+import pygame
 from ..longjump.longjump import (
     LEADERBOARD_FILE,
     calculate_landing_point,
     save_score,
     load_scores,
-    quadratic_bezier,
 )
+
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+FONT_COLOR = (255, 255, 255)
+FPS = 60
+
+GROUND_Y = SCREEN_HEIGHT - 10
+PLAYER_START_POS = 100
+BACKGROUND_COLOR = (0, 0, 0)
+GROUND_COLOR = (200, 200, 200)
+PLAYER_COLOR = (255, 255, 255)
+POLE_COLOR = (255, 100, 100)
+REGION_WIDTH = 135
 
 
 class TestGameFunctions(unittest.TestCase):
+    def setUp(self):
+        self.screen = pygame.Surface((800, 600))
+
     def test_calculate_landing_point(self):
         self.assertEqual(calculate_landing_point(0.5), 0.5)
         self.assertEqual(calculate_landing_point(1.5), 170)
         self.assertEqual(calculate_landing_point(3.5), 314)
         self.assertEqual(calculate_landing_point(6), 449)
         self.assertEqual(calculate_landing_point(8.5), 584)
-
-    def test_quadratic_bezier(self):
-        self.assertEqual(quadratic_bezier(0.5, 0, 1, 2), 1)
-        self.assertEqual(quadratic_bezier(0.75, 0, 1, 2), 1.5)
 
     @patch("csv.writer")
     @patch("builtins.open", new_callable=mock_open)

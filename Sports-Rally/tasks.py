@@ -17,7 +17,7 @@ def lint(ctx):
 
 
 @task
-def format(ctx):  # pylint: disable=redefined-builtin
+def format(ctx):
     ctx.run("autopep8 --in-place --recursive src", pty=False)
 
 
@@ -29,8 +29,3 @@ def coverage(ctx):
 @task(coverage)
 def coverage_report(ctx):
     ctx.run("coverage html", pty=False)
-
-
-# @task
-# def build(ctx):
-# ctx.run("python3 src/build.py", pty=True)
