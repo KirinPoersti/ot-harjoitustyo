@@ -19,7 +19,7 @@ Pelin toiminta on testattu Python-versiolla 3.10 ja pygame 2.3.0. Etenkin vanhem
 
 ## Pelin käynnistäminen
 
-Ennen ohjelman käynnistämistä, asenna riippuvuudet 'Sports Rally' alla komennolla :
+Ennen ohjelman käynnistämistä, asenna riippuvuudet "Sports Rally" alla komennolla :
 
 ```bash
 poetry install
