@@ -34,4 +34,4 @@ Sovellus on haettu ja sitä on testattu [käyttöohjeen](./kayttoohje.md) kuvaam
 ### Toiminnallisuudet
 Kaikki [määrittelydokumentin](https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/dokumentaatio/vaatimusmaarittely.md) ja käyttöohjeen listaamat toiminnallisuudet on käyty läpi. 
 ## Sovellukseen jääneet laatuongelmat
-En ole törmännyt mihinkään näkyviin ongelmiin pelatessani pelin lopullista julkaisuversiota, joten saa anna ihan rohkeasti palautteita!
+- Pituushypyn tulostaulukkoa pääsee tarkastamaan ainoastaan sen jälkeen, kun se on saanut 10 parasta pistemäärää pelaajilta tallenettua.
