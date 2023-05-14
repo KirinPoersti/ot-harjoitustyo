@@ -16,16 +16,18 @@ Pelin rakenne koostuu erilaisista valikoista ja tiloista, joita ohjaa ja hallinn
 
 ![](https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/sekvenssi-longjump%20leaderboard.png)
 
-![](https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/sekvenssi-longjump%20exit.png)
-
 3. Pong-valikko [pong_main.py](https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/Sports-Rally/src/pong/pong_main.py): Jos pelaaja valitsee päävalikosta Pongin, hän pääsee Pong-valikkoon. Täällä hänellä on kaksi vaihtoehtoa: Harjoitustila, jossa hän voi pelata yksin, ja PvP-tila, jossa hän voi pelata toista pelaajaa vastaan.
 
 ![](https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/sekvenssi-pong_practice%20pelaaminen.png)
+
 ![](https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/sekvenssi-pong_pvp%20pelaaminen.png)
-![](https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/sekvenssi-pong%20exit.png)
 
 4. Poistu [Exit]: Kaikissa kolmessa valikossa (päävalikko, pituushyppyvalikko ja Pong-valikko) on poistumisvaihtoehto, jonka avulla pelaajat voivat lopettaa pelin tai palata korkeamman tason valikkoon.
 
 ![](https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/sekvenssi-exit.png)
+
+![](https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/sekvenssi-longjump%20exit.png)
+
+![](https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/sekvenssi-pong%20exit.png)
 
 5. Resurssit: Kaikki pelin resurssit (äänitehosteet, taustamusiikki, taustakuvat ja leaderboardin CSV-tiedosto) tallennetaan ja haetaan kansiosta nimeltä [`resources`](https://github.com/KirinPoersti/ot-harjoitustyo/tree/main/Sports-Rally/src/resources)
