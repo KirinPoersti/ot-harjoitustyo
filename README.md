@@ -17,12 +17,22 @@ Pelin toiminta on testattu Python-versiolla 3.10 ja pygame 2.3.0. Etenkin vanhem
 - [Tuntikirjanpito](dokumentaatio/tuntikirjanpito.md)
 - [Loppupalautus](https://github.com/KirinPoersti/ot-harjoitustyo/releases/tag/Loppupalautus)
 
-# Pelin suorittaminen 
-Ennen pelin suorittamista pitää suorittaa Sports-Rally kansion alla:
+## Pelin käynnistäminen
+
+Ennen ohjelman käynnistämistä, asenna riippuvuudet komennolla:
+
 ```bash
 poetry install
 ```
-Peliä pystyy suorittamaan komennolla Sports-Rally kansion alla:
-```bash
+Nyt ohjelman voi käynnistää komennolla:
+
+```
 poetry run invoke start
+```
+tai
+```
+poetry shell 
+```
+```
+invoke start
 ```
