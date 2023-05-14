@@ -1,9 +1,8 @@
 # Sports-Rally
 
-Kyseessä olisi urheilurallia kuvaava peli, jossa on kolme mini-peliä:
+Kyseessä olisi urheilurallia kuvaava peli, jossa on kaksi mini-peliä:
 * Pong
 * Pituushyppy
-* "Kaksi-miestä-kolme-jalkaa" (Laji, jossa kaksi pelajaa yrittävät juosta yhksi heidän jaloista kiinnitettynä mahdollisimman nopeasti)
 
 # Huomio Python-versiosta
 
