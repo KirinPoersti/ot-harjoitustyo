@@ -6,7 +6,7 @@ Kyseessä olisi urheilurallia kuvaava peli, jossa on kaksi mini-peliä:
 
 # Huomio Python-versiosta
 
-Sovelluksen toiminta on testattu Python-versiolla 3.10 ja pygame 2.3.0. Etenkin vanhempien Python-versioiden kanssa saattaa ilmentyä ongelmia.
+Pelin toiminta on testattu Python-versiolla 3.10 ja pygame 2.3.0. Etenkin vanhempien Python-versioiden kanssa saattaa ilmentyä ongelmia.
 
 # Dokumentaatio
 - [Käyttöohje](dokumentaatio/kayttoohje.md)
