@@ -12,8 +12,20 @@ Pelin rakenne koostuu erilaisista valikoista ja tiloista, joita ohjaa ja hallinn
 
 2. Pituushyppy-valikko [longjump_main.py](https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/Sports-Rally/src/longjump/longjump_main.py): Kun pelaaja valitsee päävalikosta Long Jump, hän pääsee Long Jump -valikkoon. Täällä he voivat joko aloittaa Long Jump -pelin pelaamisen tai tarkastella tulostaulukkoa. Tulostaulu on käyttöliittymä, joka käyttää `menu_class`-luokkaa näyttämään pelaajien sijoitukset tai pisteet.
 
+![](https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/sekvenssi-longjump%20pelaaminen.png)
+
+![](https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/sekvenssi-longjump%20leaderboard.png)
+
+![](https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/sekvenssi-longjump%20exit.png)
+
 3. Pong-valikko [pong_main.py](https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/Sports-Rally/src/pong/pong_main.py): Jos pelaaja valitsee päävalikosta Pongin, hän pääsee Pong-valikkoon. Täällä hänellä on kaksi vaihtoehtoa: Harjoitustila, jossa hän voi pelata yksin, ja PvP-tila, jossa hän voi pelata toista pelaajaa vastaan.
+
+![](https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/sekvenssi-pong_practice%20pelaaminen.png)
+![](https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/sekvenssi-pong_pvp%20pelaaminen.png)
+![](https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/sekvenssi-pong%20exit.png)
 
 4. Poistu [Exit]: Kaikissa kolmessa valikossa (päävalikko, pituushyppyvalikko ja Pong-valikko) on poistumisvaihtoehto, jonka avulla pelaajat voivat lopettaa pelin tai palata korkeamman tason valikkoon.
 
-5. Resurssit: Kaikki pelin resurssit (äänitehosteet, taustamusiikki, taustakuvat ja leaderboardin CSV-tiedosto) tallennetaan ja haetaan kansiosta nimeltä `resources`![](https://github.com/KirinPoersti/ot-harjoitustyo/tree/main/Sports-Rally/src/resources)
+![](https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/sekvenssi-exit.png)
+
+5. Resurssit: Kaikki pelin resurssit (äänitehosteet, taustamusiikki, taustakuvat ja leaderboardin CSV-tiedosto) tallennetaan ja haetaan kansiosta nimeltä [`resources`](https://github.com/KirinPoersti/ot-harjoitustyo/tree/main/Sports-Rally/src/resources)
