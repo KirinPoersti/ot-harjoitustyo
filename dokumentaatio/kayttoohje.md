@@ -21,6 +21,8 @@ poetry shell
 ```
 invoke start
 ```
+Mikäli yllä oleva ohje ei toimi teidän koneellanne, voitte käydä tutustamassa tarkempia ohjeita Poetry-, Invoke- ja Pygame:n asennukseen.
+
 ## Pelaaminen
 
 Peli käynnistyy main menuun:
