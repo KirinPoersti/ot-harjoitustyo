@@ -25,3 +25,5 @@ päivä | aika | mitä tein
 11.5/   6   / Leaderboard lisätty pelille longjump, tiedostot siirretty omiin kansioihin
 
 12.5/  6  / Menujen toiminnallisuudet jattu luokkiin
+
+13.5 - 14.5/  6  / Palautuksen viimeistely, testien teko, repon viimeistely, koodin hiominen
