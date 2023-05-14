@@ -42,3 +42,10 @@ Peli on tehty ja sitä on testattu [käyttöohjeen](./kayttoohje.md) kuvaamalla 
 Kaikki [määrittelydokumentin](https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/dokumentaatio/vaatimusmaarittely.md) ja käyttöohjeen listaamat toiminnallisuudet on käyty läpi. 
 ## Sovellukseen jääneet laatuongelmat
 - Pituushypyn tulostaulukkoa pääsee tarkastamaan ainoastaan sen jälkeen, kun se on saanut 10 parasta pistemäärää pelaajilta tallenettua.
+- Useammassa koodissa on käytetty kopioitut/samat määrittely tiedot
+- Pygame:n oliot (esim. pygame.quit()) on kirjoitettu "väärällä" tavalla (Module 'pygame' has no 'quit' memberPylint(E1101:no-member))
+- Jotkut rivit voi olla sellaisia, että se toimii kyllä koodin tasolla, butta se ei koodauksen tasolla ole siisti
+" if button_exit.clicked(click, lambda: pygame.quit() or sys.exit()):
+            pass
+
+        pygame.display.flip() # Unreachable codePylint(W0101:unreachable"
