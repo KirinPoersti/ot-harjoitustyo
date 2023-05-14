@@ -2,7 +2,7 @@
 
 Lataa projektin viimeisimmän [releasen]( https://github.com/KirinPoersti/ot-harjoitustyo/releases) lähdekoodi valitsemalla _Assets_-osion alta _Source code_.
 
-## Ohjelman käynnistäminen
+## Pelin käynnistäminen
 
 Ennen ohjelman käynnistämistä, asenna riippuvuudet komennolla:
 
