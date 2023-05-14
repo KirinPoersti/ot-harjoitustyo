@@ -25,7 +25,7 @@ Koodissa käytetään `SoundManager`-luokkaa pelin äänien, kuten taustamusiiki
 ### Testauskattavuus
 Vaikka [test_longjump]( https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/Sports-Rally/src/tests/test_longjump.py) kattavuus on melko alhainen, testauksen haarautumakattavuus on siitä huolimatta 70%.
 
-![](./kuvat/testikattavuus.png)
+![](https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/testikattavuus.PNG)
 
 `long jump`:n metodeista on testattu vain osaa, sillä suuri osa metodeista ovat melko riippuvaisia olemassa olevista pinnasta ja syötteistä. Tämän vuoksi metodit testatiin niin paljon kuin pystyttiin [test_longjump]( https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/Sports-Rally/src/tests/test_longjump.py)-testiluokalla.
 
