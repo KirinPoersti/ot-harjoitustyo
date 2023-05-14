@@ -1,6 +1,8 @@
 # Testausdokumentti
 Ohjelmaa on testattu sekä automatisoiduin yksikkö- ja integraatiotestein unittestillä sekä manuaalisesti tapahtunein järjestelmätason testein.
+
 ## Yksikkö- ja integraatiotestaus
+
 ### Pelilogiikka
 Pelimenujen logiikasta vastaava ’menu_class’-luokkaa testataan [test_menu]( https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/Sports-Rally/src/tests/test_menu.py)-testiluokalla.  ’menu-class’-olioilla pyritään luomaan pelin peruskehys käyttäen Pygame-kirjastoa, joka mahdollistaa pelien alustamisen Pythonilla. Koodissa määritellään joitakin globaaleja asetuksia, kuten ruudun mitat, ruudunpäivitysnopeus ja fontit. ’menu_class’ sisältää seuraavat luokat:
 
@@ -10,11 +12,11 @@ Pelimenujen logiikasta vastaava ’menu_class’-luokkaa testataan [test_menu]( 
 -	`start_game` pysäyttää nykyisen taustamusiikin, suorittaa määritetyn komennon ja jatkaa sitten taustamusiikkia.
 -	`Button`-luokkaa käytetään interaktiivisten painikkeiden luomiseen pelin käyttöliittymään. Sillä on metodeja painikkeen piirtämiseen, sen tarkistamiseen, onko objekteja painikkeen alueen sisällä, ja komennon suorittamiseen, kun painiketta napsautetaan. Sillä on myös metodi poistumispainikkeen piirtämiseen.
 
-Pong-pelin logiikasta vastaavaa `pong_class`-luokkaa testataan [test_pong](https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/Sports-Rally/src/tests/test_pong.py)-testiluokalla. `Pong_class’ sisältää seuraavat luokat:
+**Pong**-pelin logiikasta vastaavaa `pong_class`-luokkaa testataan [test_pong](https://github.com/KirinPoersti/ot-harjoitustyo/blob/main/Sports-Rally/src/tests/test_pong.py)-testiluokalla. `Pong_class’ sisältää seuraavat luokat:
 -	’Paddle’ määrittelee pelin ’mailat’. Se sisältää metodeja mailojen siirtämiseen käyttäjän syötteen perusteella ja mailien piirtämiseen peliruudulle.
 -	’Ball’ määrittelee pelin pallon. Se sisältää metodit pallon liikuttamiseen, törmäysten havaitsemiseen mailojen tai pelialueen rajojen kanssa sekä pallon sijainnin palauttamiseen sen jälkeen, kun se on mennyt rajojen ulkopuolelle tai osunut mailaan.
 
-Koska long jump-pelin logiikasta vastaavat metodit käytetään ainoastaan long jump:ssa, niistä ei ole sen vuoksi perustettu erillisen luokka tiedosto [classes] (https://github.com/KirinPoersti/ot-harjoitustyo/tree/main/Sports-Rally/src/classes):iin, vaan ne ovat kaikki long jump:n pelitiedostossa. `longjump’ sisältää seuraavat luokat:
+Koska **long jump**-pelin logiikasta vastaavat metodit käytetään ainoastaan long jump:ssa, niistä ei ole sen vuoksi perustettu erillisen luokka tiedosto [classes] (https://github.com/KirinPoersti/ot-harjoitustyo/tree/main/Sports-Rally/src/classes):iin, vaan ne ovat kaikki long jump:n pelitiedostossa. `longjump’ sisältää seuraavat luokat:
 -	`draw_text`: Piirtää tekstiä näytölle määritetyllä koolla, sijainnilla ja värillä.
 -	`draw_region_lines`: Piirtää ruudulle alueviivat, jotka ilmaisevat pituushypyn etäisyysvälit.
 -	`get_player_name`: Kehottaa pelaajaa syöttämään nimensä Pygamen tapahtumajärjestelmää ja tekstin renderöintiä käyttäen. Se palauttaa syötetyn nimen.
