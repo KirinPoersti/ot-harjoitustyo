@@ -16,5 +16,5 @@
 - Mutta olen myös lisäänyt äänieffektit ja scoreboard (longjump:ia varten, mutta tätä on poistettu väliaikaisesti releasessta, sillä pelistä tullut epävakaa sen takia) peleihin.
 
 # 14.5.2023 / Viikko 7
-- Koodin viimeistely, luokkiin jako, testien teko ja toiminnallisuuden hiomainen.
+- Koodin viimeistely, luokkiin jako, testien teko ja toiminnallisuuden hiominen.
 - Repon viimeistely
